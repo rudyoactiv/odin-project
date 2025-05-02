@@ -156,3 +156,73 @@
     padding: 50px 15%;
     background-color: #1f2937;
 }
+
+
+@media (max-width: 768px) {
+    .header {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 5%;
+      padding-bottom: 0;
+    }
+
+    .header-links {
+      text-align: center;
+      border-bottom: white solid 1px;
+      padding-bottom: 20px;
+    }
+
+    .content {
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .content h1 {
+        font-size: 36px;
+    }
+  
+    .more-info {
+      padding: 30px 5%;
+    }
+  
+    .info-images {
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+  
+    .info-images div {
+      flex: 1 1 100%;
+    }
+  
+    .quote {
+      padding: 20px;
+      font-size: 28px;
+    }
+  
+    .quote-text {
+      font-size: 28px;
+    }
+  
+    .quote-author {
+      font-size: 18px;
+    }
+  
+    .action {
+      padding: 5%;
+    }
+  
+    .cta {
+      flex-direction: column;
+      gap: 20px;
+      text-align: center;
+      padding: 20px;
+    }
+  
+    .footer {
+      padding: 10px;
+      text-align: center;
+      font-size: 14px;
+    }
+  }
+  
