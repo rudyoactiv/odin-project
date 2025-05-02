@@ -46,3 +46,47 @@
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
   }
   
+#menu-toggle {
+  display: none;
+  position: fixed;
+  right: 1rem;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: white;
+  z-index: 1001;
+}
+
+#sidebar {
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (max-width: 750px) {
+  body {
+    flex-direction: column;
+  }
+
+  #menu-toggle {
+    display: block;
+    color: #333;
+    background-color: transparent;
+  }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    width: 250px;
+    z-index: 1000;
+  }
+
+  nav.open {
+    transform: translateX(0);
+  }
+
+  main {
+    padding-top: 3rem;
+  }
+}
