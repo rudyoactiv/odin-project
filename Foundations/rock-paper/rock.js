@@ -1,60 +1,54 @@
-const readline = require('readline');
+let pscore = 0;
+let cscore = 0;
+const history = document.getElementById('history');
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+function getComputerChoice() {
+    const choices = ['Rock', 'Paper', 'Scissors'];
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
+}
 
-function chooseComp() {
-    const ch = Math.random();
-    if (ch < 1/3) {
-        return 1; // Rock
-    } else if (ch < 2/3) {
-        return 2; // Paper
+function playGame(playerChoice) {
+    const computerChoice = getComputerChoice();
+    let result = '';
+
+    if (playerChoice === computerChoice) {
+        result = `It's a tie! You chose ${playerChoice}.`;
+    } else if (
+        (playerChoice === 'Rock' && computerChoice === 'Scissors') ||
+        (playerChoice === 'Paper' && computerChoice === 'Rock') ||
+        (playerChoice === 'Scissors' && computerChoice === 'Paper')
+    ) {
+        result = `You win! ${playerChoice} beats ${computerChoice}.`;
+        document.getElementById('pscore').innerHTML = `<p>Your Score: ${++pscore}</p>`;
     } else {
-        return 3; // Scissors
+        result = `You lose! ${computerChoice} beats ${playerChoice}.`;
+        document.getElementById('cscore').innerHTML = `<p>Computer Score: ${++cscore}</p>`;
+    }
+
+    document.getElementById('result').innerHTML = `<p>${result}</p>`;
+    if (pscore === 5) {
+        document.getElementById('result').innerHTML = `<p>You win the game!</p>`;
+        const li = document.createElement('li');
+        li.textContent = 'You won the game!';
+        history.insertBefore(li, history.firstChild);
+        resetGame();
+    }
+    if (cscore === 5) {
+        document.getElementById('result').innerHTML = `<p>Computer wins the game!</p>`;
+        const li = document.createElement('li');
+        li.textContent = 'Computer won the game!';
+        history.insertBefore(li, history.firstChild);     
+        resetGame();
     }
 }
 
-function getUser() {
-    return new Promise((resolve) => {
-        rl.question("Enter 1. Rock  2. Paper  3. Scissors: ", (answer) => {
-            const val = parseInt(answer);
-            if ([1, 2, 3].includes(val)) {
-                resolve(val);
-            } else {
-                console.log("Invalid input. Please enter 1, 2, or 3.");
-                resolve(getUser()); // re-ask
-            }
-        });
-    });
+function resetGame() {
+    pscore = 0;
+    cscore = 0;
+    document.getElementById('pscore').innerHTML = `<p>Your Score: ${pscore}</p>`;
+    document.getElementById('cscore').innerHTML = `<p>Computer Score: ${cscore}</p>`;
+    document.getElementById('result').innerHTML = `<p>Game reset. Start again!</p>`;
+    // winner history
+    
 }
-
-async function playGame(rounds) {
-    let compScore = 0;
-    let playerScore = 0;
-
-    for (let i = 0; i < rounds; i++) {
-        const cval = chooseComp();
-        const pval = await getUser();
-
-        if (cval === pval) {
-            console.log(`Round ${i + 1}: Draw`);
-        } else if (
-            (cval === 1 && pval === 2) ||
-            (cval === 2 && pval === 3) ||
-            (cval === 3 && pval === 1)
-        ) {
-            playerScore++;
-            console.log(`Round ${i + 1}: Player wins`);
-        } else {
-            compScore++;
-            console.log(`Round ${i + 1}: Computer wins`);
-        }
-    }
-
-    console.log(`Final Score\nPlayer: ${playerScore}\nComputer: ${compScore}`);
-    rl.close();
-}
-
-playGame(3);
