@@ -35,6 +35,138 @@ function createButtons() {
         }
         buttons.appendChild(button);
     });
+    buttons.addEventListener('click', handleButtonClick);
 }
 
 createButtons();
+
+let first = '';
+let operator = '';
+let second = '';
+let justCalc = false;
+
+
+
+function handleButtonClick(event) {
+    const value = event.target.value;
+
+    console.log(value);
+
+    if (event.target.tagName !== 'BUTTON') return;
+
+    if (value === 'AC') {
+        clear();
+    }
+    else if (value === '←') {
+        backspace();
+    }
+    else if (value === '=') {
+        calc();
+    }
+    else if (['+', '-', '*', '/', '^'].includes(value)) {
+        setop(value);
+    }
+    else {
+        updateInput(value);
+    }
+}
+
+function clear() {
+    first = '';
+    operator = '';
+    second = '';
+    display.textContent = '';
+}
+
+function updateInput(value) {
+    if(justCalc) {
+        clear();
+        justCalc = false;
+    }
+    if (!operator) {
+        first = (parseFloat(first) === 0)? value : first + value
+    }
+    else {
+        second = (parseFloat(second) === 0)? value : second + value
+    }
+    display.textContent = first + " " + operator + " " + second;
+    scrollDisplayRight();
+}
+
+function setop(value) {
+    if (!first) {
+        return;
+    }
+    justCalc = false;
+    operator = value;
+    display.textContent = first + " " + operator + " " + second;
+    scrollDisplayRight();
+}
+
+function calc() {
+    if(!second) {
+        return;
+    }
+
+    let result;
+
+    switch(operator) {
+        case '+':
+            result = parseFloat(first) + parseFloat(second);
+            break;
+        case '-':
+            result = parseFloat(first) - parseFloat(second);
+            break;
+        case '*':
+            result = parseFloat(first) * parseFloat(second);
+            break;
+        case '/':
+            if (parseFloat(second) === 0) {
+                first = '';
+                second = '';
+                operator = '';
+                let flicker = true;
+                const flickerInterval = setInterval(() => {
+                    display.textContent = flicker ? '💢💢' : '';
+                    flicker = !flicker;
+                }, 200); // toggles every 200ms
+
+                setTimeout(() => {
+                    clearInterval(flickerInterval);
+                    clear(); // reset values and display
+                }, 2000); // stop after 2 seconds
+                return;
+            } else {
+                result = parseFloat(first) / parseFloat(second);
+            }
+            break;
+        case '^':
+            result = Math.pow(parseFloat(first), parseFloat(second));
+            break;
+        default:
+            return;
+    }
+    first = result;
+    second = '';
+    operator = '';
+    display.textContent = first;
+    justCalc = true;
+}
+
+function backspace() {
+    if(second) {
+        second = second.slice(0, -1);
+    } else if(operator) {
+        operator = '';
+    } else if(first) {
+        first = first.slice(0, -1);
+    } else {
+        return
+    }
+    display.textContent = first + " " + operator + " " + second;
+    scrollDisplayRight();
+}
+
+function scrollDisplayRight() {
+    display.scrollLeft = display.scrollWidth;
+}

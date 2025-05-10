@@ -1,4 +1,18 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 .calc-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.calculator {
+    width: 100%;
     max-width: 400px;
 }
 
@@ -22,6 +36,11 @@
     border-radius: 50%;
 }
 
+.buttons button:active {
+    transform: scale(0.95);
+    background-color: #d0d0d0;
+}
+
 .display {
     font-size: 2rem;
     padding: 20px;
@@ -29,4 +48,10 @@
     border-radius: 5px;
     text-align: right;
     margin-bottom: 10px;
+    min-height: 40px;
+    line-height: 40px;
+    overflow-x: auto;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    scrollbar-width: thin;
 }
