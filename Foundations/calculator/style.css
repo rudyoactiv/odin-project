@@ -42,17 +42,19 @@ html, body {
 }
 
 .display {
-    min-height: 80px;
-    font-size: 2rem;
-    background-color: #ffffff;
-    padding: 10px;
-    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     overflow-x: auto;
-    white-space: nowrap;
-    text-align: right;
-    text-overflow: ellipsis;
     border: 1px solid #ccc;
+    min-height: 60px;
     border-radius: 5px;
     margin-bottom: 10px;
-    scrollbar-width: thin;
+    padding: 10px;
+}
+
+.calc-text {
+    max-width: 100%;
+    font-size: 2rem;
+    text-wrap: nowrap;
 }

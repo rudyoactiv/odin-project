@@ -1,4 +1,4 @@
-const display = document.querySelector('.display');
+const display = document.querySelector('.calc-text');
 const buttons = document.querySelector('.buttons');
 
 const keys = [
@@ -49,8 +49,6 @@ let justCalc = false;
 
 function handleButtonClick(event) {
     const value = event.target.value;
-
-    console.log(value);
 
     if (event.target.tagName !== 'BUTTON') return;
 
@@ -150,6 +148,7 @@ function calc() {
     second = '';
     operator = '';
     display.textContent = first;
+    scrollDisplayRight();
     justCalc = true;
 }
 
@@ -168,5 +167,5 @@ function backspace() {
 }
 
 function scrollDisplayRight() {
-    display.scrollLeft = display.scrollWidth;
+    display.parentElement.scrollLeft = display.parentElement.scrollWidth;
 }
