@@ -45,13 +45,20 @@ html, body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    position: relative;
     overflow-x: auto;
+    overflow-y: hidden;
     border: 1px solid #ccc;
     min-height: 60px;
+    height: 60px; 
     border-radius: 5px;
     margin-bottom: 10px;
     padding: 10px;
+    box-sizing: border-box;
+    background: white;
+    scrollbar-width: thin;
 }
+
 
 .calc-text {
     max-width: 100%;
