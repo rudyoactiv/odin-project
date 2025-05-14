@@ -38,6 +38,10 @@ body {
 }
 
 .banner {
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: 'CustomFont';
+    color: white;
+    text-align: center;
     font-size: 5vw;
     position: relative;
     top: 25%;
