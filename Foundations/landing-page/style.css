@@ -147,6 +147,7 @@
     text-wrap: nowrap;
     height: fit-content;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .footer {
