@@ -1,130 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <div class="container">
-    <div class="sidebar">
-      <div class="logo">
-        <img src="./assets/view-dashboard.svg" alt="Dashboard Icon" />
-        <h2>Dashboard</h2>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <div class="sidebar" id="sidebar">
+        <div class="logo"  id="side-burger">
+          <img src="./assets/view-dashboard-2.svg" alt="Dashboard Icon"/>
+          <h2>Dashboard</h2>
+        </div>
+        <nav>
+          <ul>
+            <li><img src="./assets/home.svg" alt="Home" />Home</li>
+            <li><img src="./assets/profile.svg" alt="Profile" />Profile</li>
+            <li><img src="./assets/msg.svg" alt="Messages" />Messages</li>
+            <li>
+              <img src="./assets/clock-time-three.svg" alt="History" />History
+            </li>
+            <li><img src="./assets/task.svg" alt="Tasks" />Tasks</li>
+            <li>
+              <img src="./assets/group.svg" alt="Communities" />Communities
+            </li>
+            <li><img src="./assets/settings.svg" alt="Settings" />Settings</li>
+            <li><img src="./assets/help.svg" alt="Support" />Support</li>
+            <li><img src="./assets/privacy.svg" alt="Privacy" />Privacy</li>
+          </ul>
+        </nav>
       </div>
-      <nav>
-        <ul>
-          <li><img src="./assets/home.svg" alt="Home"/>Home</li>
-          <li><img src="./assets/profile.svg" alt="Profile"/>Profile</li>
-          <li><img src="./assets/msg.svg" alt="Messages"/>Messages</li>
-          <li><img src="./assets/clock-time-three.svg" alt="History"/>History</li>
-          <li><img src="./assets/task.svg" alt="Tasks"/>Tasks</li>
-          <li><img src="./assets/group.svg" alt="Communities"/>Communities</li>
-          <li><img src="./assets/settings.svg" alt="Settings"/>Settings</li>
-          <li><img src="./assets/help.svg" alt="Support"/>Support</li>
-          <li><img src="./assets/privacy.svg" alt="Privacy"/>Privacy</li>
-        </ul>
-      </nav>
+
+      <div class="main-content">
+        <div class="header">
+          <div class="hamburger" id="hamburger"><img src="./assets/view-dashboard.svg" alt="Dashboard Icon" /></div>
+          <input type="text" placeholder="Search..." class="search-bar" />
+          <div class="header-right">
+            <img src="./assets/bell.svg" alt="Notifications" class="icon" />
+            <div class="user-info">
+              <img src="./assets/pfp.jpg" alt="Profile" class="avatar" />
+              <span>Morgan Oakley</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-bar">
+          <div class="greeting">
+            <img src="./assets/pfp.jpg" alt="Avatar" class="avatar" />
+            <div>
+              <p>Hi there,</p>
+              <h2>Morgan Oakley <span class="handle">(@morgan)</span></h2>
+            </div>
+          </div>
+          <div class="actions">
+            <button><img src="./assets/new.svg" alt="" /></button>
+            <button><img src="./assets/upload.svg" alt="" /></button>
+            <button><img src="./assets/share.svg" alt="" /></button>
+          </div>
+        </div>
+
+        <div class="content-grid">
+          <div class="projects">
+            <h3>Your Projects</h3>
+            <div class="project-grid">
+              <div class="card">
+                <h4>Super Cool Project</h4>
+                <p>Sed tempus ut lacus ut scelerisque...</p>
+                <div class="icons">⭐ 👁️ 🔗</div>
+              </div>
+              <div class="card yellow">
+                <h4>Less Cool Project</h4>
+                <p>Nullam condimentum ipsum...</p>
+                <div class="icons">⭐ 👁️ 🔗</div>
+              </div>
+              <div class="card">
+                <h4>Impossible App</h4>
+                <p>In hac habitasse platea dictumst...</p>
+                <div class="icons">⭐ 👁️ 🔗</div>
+              </div>
+              <div class="card">
+                <h4>Easy Peasy App</h4>
+                <p>Etiam cursus eros ac efficitur...</p>
+                <div class="icons">⭐ 👁️ 🔗</div>
+              </div>
+              <div class="card">
+                <h4>Ad Blocker</h4>
+                <p>Quisque eget rutrum nisl...</p>
+                <div class="icons">⭐ 👁️ 🔗</div>
+              </div>
+              <div class="card">
+                <h4>Money Maker</h4>
+                <p>Praesent convallis, libero quis...</p>
+                <div class="icons">
+                  <img src="./assets/star.svg" alt="Star" />
+                  <img src="./assets/watch.svg" alt="Watch" />
+                  <img src="./assets/share.svg" alt="Share" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right-panel">
+            <div class="announcements">
+              <h4>Announcements</h4>
+              <div class="announcement">
+                <strong>Site Maintenance</strong>
+                <p>
+                  Vestibulum condimentum tellus lacus, in accumsan elit
+                  maximus...
+                </p>
+              </div>
+              <div class="announcement">
+                <strong>Community Share Day</strong>
+                <p>Nam vel lectus tincidunt, rutrum nulla eu...</p>
+              </div>
+              <div class="announcement">
+                <strong>Updated Privacy Policy</strong>
+                <p>Phasellus efficitur nisi eget elit consectetur...</p>
+              </div>
+            </div>
+
+            <div class="trending">
+              <h4>Trending</h4>
+              <div class="trend-user">
+                <img src="./assets/pfp.jpg" alt="User" />
+                <div>
+                  <p>@tegan</p>
+                  <small>World Peace Builder</small>
+                </div>
+              </div>
+              <div class="trend-user">
+                <img src="./assets/pfp.jpg" alt="User" />
+                <div>
+                  <p>@morgan</p>
+                  <small>Super Cool Project</small>
+                </div>
+              </div>
+              <div class="trend-user">
+                <img src="./assets/pfp.jpg" alt="User" />
+                <div>
+                  <p>@kendall</p>
+                  <small>Life Changing App</small>
+                </div>
+              </div>
+              <div class="trend-user">
+                <img src="./assets/pfp.jpg" alt="User" />
+                <div>
+                  <p>@alex</p>
+                  <small>No Traffic Maker</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div class="main-content">
-      <div class="header">
-        <input type="text" placeholder="Search..." class="search-bar" />
-        <div class="header-right">
-          <img src="./assets/bell.svg" alt="Notifications" class="icon" />
-          <div class="user-info">
-            <img src="https://picsum.photos/40?random=1" alt="Profile" class="avatar"/>
-            <span>Morgan Oakley</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="top-bar">
-        <div class="greeting">
-          <img src="https://picsum.photos/40?random=2" alt="Avatar" class="avatar"/>
-          <div>
-            <p>Hi there,</p>
-            <h2>Morgan Oakley <span class="handle">(@morgan)</span></h2>
-          </div>
-        </div>
-        <div class="actions">
-          <button>New</button>
-          <button>Upload</button>
-          <button>Share</button>
-        </div>
-      </div>
-
-      <div class="content-grid">
-        <div class="projects">
-          <h3>Your Projects</h3>
-          <div class="project-grid">
-            <div class="card">
-              <h4>Super Cool Project</h4>
-              <p>Sed tempus ut lacus ut scelerisque...</p>
-              <div class="icons">⭐ 👁️ 🔗</div>
-            </div>
-
-            <div class="card yellow"><h4>Less Cool Project</h4><p>Nullam condimentum ipsum...</p><div class="icons">⭐ 👁️ 🔗</div></div>
-            <div class="card"><h4>Impossible App</h4><p>In hac habitasse platea dictumst...</p><div class="icons">⭐ 👁️ 🔗</div></div>
-            <div class="card"><h4>Easy Peasy App</h4><p>Etiam cursus eros ac efficitur...</p><div class="icons">⭐ 👁️ 🔗</div></div>
-            <div class="card"><h4>Ad Blocker</h4><p>Quisque eget rutrum nisl...</p><div class="icons">⭐ 👁️ 🔗</div></div>
-            <div class="card"><h4>Money Maker</h4><p>Praesent convallis, libero quis...</p><div class="icons">⭐ 👁️ 🔗</div></div>
-          </div>
-        </div>
-
-        <div class="right-panel">
-          <div class="announcements">
-            <h4>Announcements</h4>
-            <div class="announcement">
-              <strong>Site Maintenance</strong>
-              <p>Vestibulum condimentum tellus lacus, in accumsan elit maximus...</p>
-            </div>
-            <div class="announcement">
-              <strong>Community Share Day</strong>
-              <p>Nam vel lectus tincidunt, rutrum nulla eu...</p>
-            </div>
-            <div class="announcement">
-              <strong>Updated Privacy Policy</strong>
-              <p>Phasellus efficitur nisi eget elit consectetur...</p>
-            </div>
-          </div>
-
-          <div class="trending">
-            <h4>Trending</h4>
-            <div class="trend-user">
-              <img src="https://picsum.photos/40?random=3" alt="User" />
-              <div>
-                <p>@tegan</p>
-                <small>World Peace Builder</small>
-              </div>
-            </div>
-            <div class="trend-user">
-              <img src="https://picsum.photos/40?random=4" alt="User" />
-              <div>
-                <p>@morgan</p>
-                <small>Super Cool Project</small>
-              </div>
-            </div>
-            <div class="trend-user">
-              <img src="https://picsum.photos/40?random=5" alt="User" />
-              <div>
-                <p>@kendall</p>
-                <small>Life Changing App</small>
-              </div>
-            </div>
-            <div class="trend-user">
-              <img src="https://picsum.photos/40?random=6" alt="User" />
-              <div>
-                <p>@alex</p>
-                <small>No Traffic Maker</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
