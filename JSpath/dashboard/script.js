@@ -2,14 +2,6 @@ const hamburger = document.getElementById('hamburger');
 const sidebar = document.getElementById('sidebar');
 const sidebutton = document.getElementById('side-burger');
 
-function toggleSidebar() {
-  sidebar.classList.toggle('active');
-}
-
-hamburger.addEventListener('click', toggleSidebar);
-sidebutton.addEventListener('click', toggleSidebar);
-
-
 const projects = [
   {
     title: "Super Cool Project",
@@ -51,18 +43,33 @@ const projects = [
   {
     title: "Scan & Go",
     desc: "A mobile app that lets users scan grocery items and pay instantly without waiting in line. Uses Flutter, QR code scanning, and integrates with Stripe for payments."
+  },
+  {
+    title: "Scan & Go",
+    desc: "A mobile app that lets users scan grocery items and pay instantly without waiting in line. Uses Flutter, QR code scanning, and integrates with Stripe for payments."
   }
 ];
 
+function toggleSidebar() {
+  sidebar.classList.toggle('active');
+}
+
+hamburger.addEventListener('click', toggleSidebar);
+sidebutton.addEventListener('click', toggleSidebar);
+
+const container = document.querySelector('.project-grid');
+const loadMoreBtn = document.getElementById('load-more');
+let visibleCount = 0;
+const increment = 5;
 
 function renderProjectCards() {
-  const container = document.querySelector('.project-grid');
-  container.innerHTML = ''; // Clear existing content
+  const end = visibleCount + increment;
+  const slice = projects.slice(visibleCount, end);
 
-  projects.forEach(project => {
+  slice.forEach(project => {
     const card = document.createElement('div');
     card.className = `card${project.class ? ' ' + project.class : ''}`;
-    
+
     card.innerHTML = `
       <h4>${project.title}</h4>
       <p>${project.desc}</p>
@@ -73,7 +80,6 @@ function renderProjectCards() {
       </div>
     `;
 
-    // Attach dummy alerts
     card.querySelectorAll('.icon-btn').forEach(icon => {
       icon.addEventListener('click', () => {
         alert(icon.dataset.action + ' "' + project.title + '"');
@@ -82,6 +88,14 @@ function renderProjectCards() {
 
     container.appendChild(card);
   });
+
+  visibleCount += slice.length;
+
+  if (visibleCount >= projects.length) {
+    loadMoreBtn.style.display = 'none';
+  }
 }
 
 renderProjectCards();
+
+loadMoreBtn.addEventListener('click', renderProjectCards);
