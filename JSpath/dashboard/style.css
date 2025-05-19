@@ -153,6 +153,7 @@ body {
 
 .card .icons img {
   width: 24px;
+  cursor: pointer;
 }
 
 .card.yellow {
@@ -179,6 +180,10 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.right-panel h3 {
+  margin-bottom: 20px;
 }
 
 .announcements,
@@ -278,6 +283,10 @@ body {
 
   .sidebar.active {
     transform: translateX(0);
+  }
+
+  .sidebar li {
+    font-size: 18px;
   }
 
   .main-content {
