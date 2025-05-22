@@ -1,4 +1,104 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+button {
+    cursor: pointer;
+}
+
+.header {
+    background-color: #2E7D32;
+    text-align: center;
+    padding: 20px;
+    color: white;
+    font-size: 24px;
+    letter-spacing: 2px;
+    position: sticky;
+    top: 0;
+}
+
+#add-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #2E7D32;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.book-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+    h3 {
+        margin: 0;
+        font-size: 20px;
+    }
+}
+
+.card-btns {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    button {
+        width: 40%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background-color: lightblue;
+    }
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .add-btn-container {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        button {
+            width: 40%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: lightblue;
+        }
+    }
+
+}
+
+#book-form {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
 .hidden {
     display: none;
 }
-

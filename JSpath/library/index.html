@@ -8,31 +8,35 @@
   </head>
   <body>
     <div id="modal" class="modal hidden">
-      <button id="close-modal">X</button>
-      <h2>Add Book</h2>
-
       <form id="book-form">
+        <h2>Add Book</h2>
         <label>
-          Title:
+          Title: <br>
           <input type="text" id="title" name="title" required />
         </label>
         <label>
-          Author:
+          Author: <br>
           <input type="text" id="author" name="author" required />
         </label>
         <label>
-          Pages:
+          Pages: <br>
           <input type="number" id="pages" name="pages" required />
         </label>
         <label>
           Read:
           <input type="checkbox" id="read" name="read" />
         </label>
-        <button id="submit-btn" type="submit">Add Book</button>
+        <div class="add-btn-container">
+            <button id="submit-btn" type="submit">
+                Add
+            </button>
+            <button id="close-modal">Cancel</button>
+        </div>
       </form>
     </div>
     <div id="library-container">
-      <button id="add-btn">Add</button>
+        <div class="header">Bookworm.</div>
+      <button id="add-btn">+</button>
       <div id="library"></div>
     </div>
     <script src="./script.js"></script>

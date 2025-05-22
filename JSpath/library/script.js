@@ -40,8 +40,10 @@ function displayBooks() {
             <p>Author: ${book.author}</p>
             <p>Pages: ${book.pages}</p>
             <p>Read: ${book.read ? "Yes" : "No"}</p>
-            <button class="toggle-read">Toggle Read</button>
-            <button class="remove-book">Remove</button>
+            <div class="card-btns">
+              <button class="toggle-read">${!book.read? "Read" : "Not Read?"}</button>
+              <button class="remove-book">Remove</button>
+            </div>
         `;
 
     // Add event listeners for buttons
