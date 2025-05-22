@@ -1,15 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-    <div class="library-container">
-    
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div id="modal" class="modal hidden">
+      <button id="close-modal">X</button>
+      <h2>Add Book</h2>
+
+      <form id="book-form">
+        <label>
+          Title:
+          <input type="text" id="title" name="title" required />
+        </label>
+        <label>
+          Author:
+          <input type="text" id="author" name="author" required />
+        </label>
+        <label>
+          Pages:
+          <input type="number" id="pages" name="pages" required />
+        </label>
+        <label>
+          Read:
+          <input type="checkbox" id="read" name="read" />
+        </label>
+        <button id="submit-btn" type="submit">Add Book</button>
+      </form>
+    </div>
+    <div id="library-container">
+      <button id="add-btn">Add</button>
+      <div id="library"></div>
     </div>
     <script src="./script.js"></script>
-</body>
+  </body>
 </html>
