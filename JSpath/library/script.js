@@ -4,7 +4,13 @@ const myLibrary = [
   new Book("To Kill a Mockingbird", "Harper Lee", 281, true),
   new Book("The Great Gatsby", "F. Scott Fitzgerald", 180, false),
   new Book("Pride and Prejudice", "Jane Austen", 432, true),
+  new Book("Moby-Dick", "Herman Melville", 635, false),
+  new Book("War and Peace", "Leo Tolstoy", 1225, true),
+  new Book("The Catcher in the Rye", "J.D. Salinger", 277, false),
+  new Book("The Chronicles of Narnia", "C.S. Lewis", 768, true),
+  new Book("The Alchemist", "Paulo Coelho", 208, true),
 ];
+
 
 displayBooks();
 
