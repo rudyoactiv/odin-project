@@ -1,0 +1,41 @@
+html {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, min(20%, 80px));
+    grid-template-rows: repeat(3, min(20%, 80px));
+    gap: 10px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+button.field {
+    width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    font-size: 2rem;
+}
+
+button.restart {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.status {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.players {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
