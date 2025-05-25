@@ -1,3 +1,33 @@
+
+/* Old way of defining a Book constructor function
+
+function Book(title, author, pages, read) {
+  this.id = crypto.randomUUID();
+  this.title = title;
+  this.author = author;
+  this.pages = pages;
+  this.read = read;
+}
+
+Book.prototype.toggleRead = function () {
+  this.read = !this.read;
+};
+
+*/
+
+class Book {
+  constructor(title, author, pages, read) {
+    this.id = crypto.randomUUID();
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  toggleRead() {
+    this.read = !this.read;
+  }
+}
+
 const myLibrary = [
   new Book("The Hobbit", "J.R.R. Tolkien", 295, true),
   new Book("1984", "George Orwell", 328, false),
@@ -11,20 +41,8 @@ const myLibrary = [
   new Book("The Alchemist", "Paulo Coelho", 208, true),
 ];
 
-
 displayBooks();
 
-function Book(title, author, pages, read) {
-  this.id = crypto.randomUUID();
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
 
 function addBookToLibrary(title, author, pages, read) {
   const newBook = new Book(title, author, pages, read);
