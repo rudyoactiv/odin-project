@@ -68,7 +68,7 @@ const GameController = (() => {
     Gameboard.resetBoard();
     gameActive = true;
     DisplayController.updateStatus(
-      `${currentPlayer.name}'s turn (${currentPlayer.marker})`
+      `${currentPlayer.name}'s turn - ${currentPlayer.marker}`
     );
     DisplayController.renderBoard();
   };
@@ -90,7 +90,7 @@ const GameController = (() => {
     } else {
       switchPlayer();
       DisplayController.updateStatus(
-        `${currentPlayer.name}'s turn (${currentPlayer.marker})`
+        `${currentPlayer.name}'s turn - ${currentPlayer.marker}`
       );
     }
   };
@@ -153,8 +153,35 @@ const DisplayController = (() => {
     });
   });
 
+  // Flip animation on reset
+  const flipAllBoxes = () => {
+    fields.forEach((field, i) => {
+      setTimeout(() => {
+        field.classList.add("flip");
+
+        // flip anim clear contents
+        setTimeout(() => {
+          field.textContent = "";
+          field.classList.remove("winning");
+        }, 300);
+
+        field.addEventListener(
+          "animationend",
+          () => {
+            field.classList.remove("flip");
+          },
+          { once: true }
+        );
+      }, i * 150);
+    });
+  };
+
   restartBtn.addEventListener("click", () => {
-    GameController.restartGame();
+    flipAllBoxes();
+    
+    setTimeout(() => {
+      GameController.restartGame();
+    }, fields.length * 150 + 200);
   });
 
   swapBtn.addEventListener("click", () => {
