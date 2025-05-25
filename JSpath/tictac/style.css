@@ -60,5 +60,5 @@ button.restart, button.swap-btn {
 }
 
 .field.flip {
-  animation: flip 0.2s ease forwards;
+  animation: flip 0.6s ease forwards;
 }
