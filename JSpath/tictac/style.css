@@ -22,7 +22,7 @@ button.field {
     font-size: 2rem;
 }
 
-button.restart {
+button.restart, button.swap-btn {
     padding: 10px 20px;
     font-size: 1rem;
     cursor: pointer;
@@ -38,4 +38,11 @@ button.restart {
     display: flex;
     justify-content: center;
     gap: 20px;
+}
+
+.field.winning {
+  background-color: #a6f3a6;
+  transition: background-color 0.3s ease;
+  border-radius: 5px;
+  border: none;
 }

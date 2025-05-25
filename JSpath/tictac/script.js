@@ -19,21 +19,21 @@ const Gameboard = (() => {
     return false;
   };
 
-  const isFull = () => board.every(cell => cell !== "");
+  const isFull = () => board.every((cell) => cell !== "");
 
   const getAvailableMoves = () =>
-    board.map((cell, index) => (cell === "" ? index : null)).filter(i => i !== null);
+    board
+      .map((cell, index) => (cell === "" ? index : null))
+      .filter((i) => i !== null);
 
   return { getBoard, resetBoard, setMarker, isFull, getAvailableMoves };
 })();
-
 
 /* ============================================
    Player Factory
    Creates player objects with name and marker
 ============================================ */
 const Player = (name, marker) => ({ name, marker });
-
 
 /* ============================================
    Game Controller Module (IIFE)
@@ -46,42 +46,62 @@ const GameController = (() => {
   let gameActive = false;
 
   const winningCombos = [
-    [0, 1, 2], [3, 4, 5], [6, 7, 8],
-    [0, 3, 6], [1, 4, 7], [2, 5, 8],
-    [0, 4, 8], [2, 4, 6]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
   ];
 
-  const startGame = (p1Name = "Player 1", p2Name = "Player 2", p1Marker = "X", p2Marker = "O") => {
+  const startGame = (
+    p1Name = "Player 1",
+    p2Name = "Player 2",
+    p1Marker = "X",
+    p2Marker = "O"
+  ) => {
     player1 = Player(p1Name, p1Marker);
     player2 = Player(p2Name, p2Marker);
     currentPlayer = player1;
     Gameboard.resetBoard();
     gameActive = true;
-    DisplayController.updateStatus(`${currentPlayer.name}'s turn (${currentPlayer.marker})`);
+    DisplayController.updateStatus(
+      `${currentPlayer.name}'s turn (${currentPlayer.marker})`
+    );
     DisplayController.renderBoard();
   };
 
-  const playTurn = (index) => {
-    if (!gameActive || !Gameboard.setMarker(index, currentPlayer.marker)) return;
+  const playTurn = async (index) => {
+    if (!gameActive || !Gameboard.setMarker(index, currentPlayer.marker))
+      return;
 
     DisplayController.renderBoard();
 
-    if (checkWinner(currentPlayer.marker)) {
+    const winningCombo = checkWinner(currentPlayer.marker);
+    if (winningCombo) {
+      gameActive = false;
       DisplayController.updateStatus(`${currentPlayer.name} wins!`);
-      gameActive = false;
+      await DisplayController.highlightWinningSquares(winningCombo);
     } else if (Gameboard.isFull()) {
-      DisplayController.updateStatus("It's a tie!");
       gameActive = false;
+      DisplayController.updateStatus("It's a tie!");
     } else {
       switchPlayer();
-      DisplayController.updateStatus(`${currentPlayer.name}'s turn (${currentPlayer.marker})`);
+      DisplayController.updateStatus(
+        `${currentPlayer.name}'s turn (${currentPlayer.marker})`
+      );
     }
   };
 
   const checkWinner = (marker) => {
-    return winningCombos.some(combo =>
-      combo.every(index => Gameboard.getBoard()[index] === marker)
-    );
+    for (const combo of winningCombos) {
+      if (combo.every((index) => Gameboard.getBoard()[index] === marker)) {
+        return combo; // Return winning combo array
+      }
+    }
+    return null;
   };
 
   const switchPlayer = () => {
@@ -96,7 +116,6 @@ const GameController = (() => {
 
   return { startGame, playTurn, restartGame, isGameActive };
 })();
-
 
 /* ============================================
    Display Controller Module (IIFE)
@@ -115,6 +134,7 @@ const DisplayController = (() => {
     const board = Gameboard.getBoard();
     fields.forEach((field, index) => {
       field.textContent = board[index];
+      field.classList.remove("winning");
     });
   };
 
@@ -124,7 +144,7 @@ const DisplayController = (() => {
   };
 
   // Setup event listeners
-  fields.forEach(field => {
+  fields.forEach((field) => {
     field.addEventListener("click", (e) => {
       const index = +e.target.dataset.index;
       if (GameController.isGameActive()) {
@@ -145,10 +165,16 @@ const DisplayController = (() => {
     GameController.startGame("Player 1", "Player 2", p2, p1);
   });
 
-  return { renderBoard, updateStatus };
+  const highlightWinningSquares = async (combo) => {
+    for (const index of combo) {
+      fields[index].classList.add("winning");
+      // wait 300ms before highlighting next
+      await new Promise((resolve) => setTimeout(resolve, 300));
+    }
+  };
+
+  return { renderBoard, updateStatus, highlightWinningSquares };
 })();
-
-
 
 // Initialize the game with default players and markers
 const p1 = document.getElementById("player1-marker").textContent;
