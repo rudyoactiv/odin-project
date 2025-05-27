@@ -2,4 +2,6 @@
 **/node_modules
 
 # Ignore dist folders (Webpack build outputs)
-**/dist
+# **/dist
+
+# not ignoring dist folders in the root because of current deployment setup
