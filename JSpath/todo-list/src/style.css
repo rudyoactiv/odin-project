@@ -1,14 +1,25 @@
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
 body {
     font-family: sans-serif;
     display: flex;
     margin: 0;
-    height: 100vh;
+    height: 100%;
 }
 
 aside {
-    width: 250px;
     background: #f3f3f3;
     padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 main {
@@ -22,21 +33,7 @@ main {
     color: gray;
 }
 
-.priority-high {
-    color: red;
-}
 
-.priority-medium {
-    color: orange;
-}
-
-.priority-low {
-    color: green;
-}
-
-button {
-    margin: 4px;
-}
 
 .hidden {
     display: none;
@@ -55,15 +52,67 @@ button {
 
 #add-todo-btn {
     position: fixed;
-    bottom: 20px;
     right: 20px;
-    width: 56px;
-    height: 56px;
+    bottom: 20px;
     border-radius: 50%;
-    font-size: 32px;
-    background: #007bff;
-    color: white;
     border: none;
+    background-color: #007bff;
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    z-index: 1001;
+}
+
+#project-list {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    padding: 0;
+}
+
+.project-tab {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #e9ecef;
+}
+
+.todo {
+    list-style: none;
+/* box shadow only bottom */
+    box-shadow: -4px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    position: relative;
+
+}
+
+.todo::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -8px;
+    width: 8px;
+    height: 100%;
+    border-radius: 10px 0 0 10px;
+}
+
+.priority-high::after {
+    background-color: red;
+}
+.priority-medium::after {
+    background-color: orange;
+}
+.priority-low::after {
+    background-color: green;
 }

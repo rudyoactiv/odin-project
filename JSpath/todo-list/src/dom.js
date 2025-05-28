@@ -4,15 +4,13 @@ export function renderProjects(projects, currentIndex, switchProject, deleteProj
 
   projects.forEach((project, i) => {
     const li = document.createElement('li');
-    li.style.display = 'flex';
-    li.style.alignItems = 'center';
-    li.style.justifyContent = 'space-between';
+    li.classList.add('project-tab');
 
     const nameSpan = document.createElement('span');
     nameSpan.textContent = project.name;
     nameSpan.style.cursor = 'pointer';
-    if (i === currentIndex) nameSpan.style.fontWeight = 'bold';
-    nameSpan.addEventListener('click', () => switchProject(i));
+    if (i === currentIndex) li.style.backgroundColor = '#b4b4b4';
+    li.addEventListener('click', () => switchProject(i));
     li.appendChild(nameSpan);
 
     const delBtn = document.createElement('button');
@@ -39,26 +37,26 @@ export function renderTodos(project, toggle, remove) {
   const list = document.getElementById('todo-list');
   list.innerHTML = '';
 
-  project.getTodos().forEach((todo, i) => {
-    const li = document.createElement('li');
-    li.classList.add('todo');
-    if (todo.complete) li.classList.add('completed');
+project.getTodos().forEach((todo, i) => {
+  const li = document.createElement('li');
+  li.classList.add('todo', `priority-${todo.priority}`);
+  if (todo.complete) li.classList.add('completed');
 
-    const title = document.createElement('span');
-    title.textContent = `${todo.title} (${todo.dueDate})`;
-    title.classList.add(`priority-${todo.priority}`);
-    li.appendChild(title);
+  li.innerHTML = `
+      <span class="todo-title">
+        ${todo.title}${todo.dueDate ? ` (${todo.dueDate})` : ''}
+      </span>
+      ${todo.description ? `<span class="todo-description">${todo.description}</span>` : ''}
+    <div class="todo-actions">
+      <button class="todo-done-btn" data-index="${i}">✓</button>
+      <button class="todo-delete-btn" data-index="${i}">🗑</button>
+    </div>
+  `;
 
-    const doneBtn = document.createElement('button');
-    doneBtn.textContent = '✓';
-    doneBtn.addEventListener('click', () => toggle(i));
-    li.appendChild(doneBtn);
+  // Add event listeners to buttons
+  li.querySelector('.todo-done-btn').addEventListener('click', () => toggle(i));
+  li.querySelector('.todo-delete-btn').addEventListener('click', () => remove(i));
 
-    const delBtn = document.createElement('button');
-    delBtn.textContent = '🗑';
-    delBtn.addEventListener('click', () => remove(i));
-    li.appendChild(delBtn);
-
-    list.appendChild(li);
-  });
+  list.appendChild(li);
+});
 }
