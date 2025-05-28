@@ -1,8 +1,35 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><title>Todo List</title><style>body { font-family: sans-serif; display: flex; margin: 0; height: 100vh; }
-      aside { width: 250px; background: #f3f3f3; padding: 1rem; }
-      main { flex: 1; padding: 1rem; overflow-y: auto; }
-      .todo.completed { text-decoration: line-through; color: gray; }
-      .priority-high { color: red; }
-      .priority-medium { color: orange; }
-      .priority-low { color: green; }
-      button { margin: 4px; }</style><script defer="defer" src="main.js"></script></head><body><aside><h2>Projects</h2><ul id="project-list"></ul><input id="new-project-name" placeholder="New project name"/> <button id="add-project">Add Project</button></aside><main><h2 id="current-project-name">Todos</h2><ul id="todo-list"></ul><h3>Add Todo</h3><input id="todo-title" placeholder="Title"/><br/><textarea id="todo-description" placeholder="Description"></textarea><br/><input type="date" id="todo-due-date"/><br/><select id="todo-priority"><option value="high">High</option><option value="medium" selected="selected">Medium</option><option value="low">Low</option></select><br/><button id="add-todo">Add Todo</button></main></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Todo List</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <aside>
+      <h2>Projects</h2>
+      <input id="new-project-name" placeholder="New project name" />
+      <button id="add-project">Add Project</button>
+      <ul id="project-list"></ul>
+    </aside>
+    <main>
+      <h2 id="current-project-name">Todos</h2>
+      <ul id="todo-list"></ul>
+      <!-- Floating Add Todo Button -->
+    <button id="add-todo-btn">+</button>
+
+    <!-- Todo Form Popup -->
+    <div id="todo-popup" class="hidden">
+      <h3>Add Todo</h3>
+      <input id="todo-title" placeholder="Title" /><br />
+      <textarea id="todo-description" placeholder="Description"></textarea><br />
+      <input type="date" id="todo-due-date" /><br />
+      <select id="todo-priority">
+        <option value="high">High</option>
+        <option value="medium" selected>Medium</option>
+        <option value="low">Low</option>
+      </select><br />
+      <button id="add-todo">Add Todo</button>
+    </div>
+    </main>
+  </body>
+</html>

@@ -1,17 +1,39 @@
-export function renderProjects(projects, currentIndex, switchProject) {
+export function renderProjects(projects, currentIndex, switchProject, deleteProject) {
   const list = document.getElementById('project-list');
   list.innerHTML = '';
 
   projects.forEach((project, i) => {
     const li = document.createElement('li');
-    li.textContent = project.name;
-    if (i === currentIndex) li.style.fontWeight = 'bold';
-    li.addEventListener('click', () => switchProject(i));
+    li.style.display = 'flex';
+    li.style.alignItems = 'center';
+    li.style.justifyContent = 'space-between';
+
+    const nameSpan = document.createElement('span');
+    nameSpan.textContent = project.name;
+    nameSpan.style.cursor = 'pointer';
+    if (i === currentIndex) nameSpan.style.fontWeight = 'bold';
+    nameSpan.addEventListener('click', () => switchProject(i));
+    li.appendChild(nameSpan);
+
+    const delBtn = document.createElement('button');
+    delBtn.textContent = '🗑';
+    delBtn.style.marginLeft = '8px';
+    delBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // prevent triggering switchProject
+      deleteProject(i);
+    });
+    li.appendChild(delBtn);
+
     list.appendChild(li);
   });
 
-  document.getElementById('current-project-name').textContent = projects[currentIndex].name;
+  if (projects[currentIndex]) {
+    document.getElementById('current-project-name').textContent = projects[currentIndex].name;
+  } else {
+    document.getElementById('current-project-name').textContent = '';
+  }
 }
+
 
 export function renderTodos(project, toggle, remove) {
   const list = document.getElementById('todo-list');

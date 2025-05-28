@@ -2,6 +2,8 @@ import Project from './Project';
 import Todo from './Todo';
 import { renderProjects, renderTodos } from './dom';
 import { saveData, loadData } from './storage';
+import './style.css';
+
 
 let projects = [];
 let currentProjectIndex = 0;
@@ -22,10 +24,27 @@ if (data) {
 }
 
 function update() {
-  renderProjects(projects, currentProjectIndex, switchProject);
-  renderTodos(projects[currentProjectIndex], toggleTodo, deleteTodo);
+  renderProjects(projects, currentProjectIndex, switchProject, deleteProject);
+  if (projects[currentProjectIndex]) {
+    renderTodos(projects[currentProjectIndex], toggleTodo, deleteTodo);
+  } else {
+    document.getElementById('todo-list').innerHTML = '';
+  }
   saveData(projects);
 }
+
+function deleteProject(index) {
+  projects.splice(index, 1);
+  if (currentProjectIndex >= projects.length) {
+    currentProjectIndex = projects.length - 1;
+  }
+  if (projects.length === 0) {
+    projects.push(new Project('Default'));
+    currentProjectIndex = 0;
+  }
+  update();
+}
+
 
 function switchProject(index) {
   currentProjectIndex = index;
@@ -55,6 +74,14 @@ function toggleTodo(index) {
   update();
 }
 
+const popup = document.getElementById('todo-popup');
+const addTodoBtn = document.getElementById('add-todo-btn');
+
+addTodoBtn.addEventListener('click', () => {
+  popup.classList.toggle('hidden');
+});
+
+
 document.getElementById('add-project').addEventListener('click', () => {
   const name = document.getElementById('new-project-name').value;
   addProject(name);
@@ -72,6 +99,8 @@ document.getElementById('add-todo').addEventListener('click', () => {
   document.getElementById('todo-title').value = '';
   document.getElementById('todo-description').value = '';
   document.getElementById('todo-due-date').value = '';
+
+  popup.classList.add('hidden');
 });
 
 update();

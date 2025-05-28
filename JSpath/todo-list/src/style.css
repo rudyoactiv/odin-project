@@ -1,0 +1,69 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    margin: 0;
+    height: 100vh;
+}
+
+aside {
+    width: 250px;
+    background: #f3f3f3;
+    padding: 1rem;
+}
+
+main {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.todo.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.priority-high {
+    color: red;
+}
+
+.priority-medium {
+    color: orange;
+}
+
+.priority-low {
+    color: green;
+}
+
+button {
+    margin: 4px;
+}
+
+.hidden {
+    display: none;
+}
+
+#todo-popup {
+    position: fixed;
+    bottom: 80px;
+    right: 20px;
+    background: white;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+}
+
+#add-todo-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 32px;
+    background: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    z-index: 1001;
+}
