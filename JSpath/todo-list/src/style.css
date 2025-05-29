@@ -48,6 +48,17 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+#todo-popup h3 {
+    text-align: center;
+}
+
+#todo-popup input, #todo-popup select, #todo-popup button {
+    padding: 5px;
 }
 
 #add-todo-btn {
@@ -94,7 +105,6 @@ main {
     padding: 10px;
     margin-bottom: 10px;
     position: relative;
-
 }
 
 .todo::after {
@@ -107,6 +117,10 @@ main {
     border-radius: 10px 0 0 10px;
 }
 
+.todo span {
+    word-wrap: break-word;
+}
+
 .priority-high::after {
     background-color: red;
 }
@@ -115,4 +129,69 @@ main {
 }
 .priority-low::after {
     background-color: green;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar-header button {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#sidebar-btn {
+    display: none;
+}
+
+#todo-description, #todo-due-date, #todo-priority {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#add-todo {
+    align-self: center;
+}
+
+@media screen and (max-width: 750px) {
+
+    #todo-list {
+        padding: 0;
+    }
+
+    #sidebar-btn {
+        display: block;
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        border: none;
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 1001;
+    }
+
+    aside {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        top: 0;
+        z-index: 1000;
+        padding: 1rem;
+        box-sizing: border-box;
+        transition: transform 0.4s ease;
+    }
+    .sidebar-header button {
+        display: block;
+    }
+    
+    .sidebar-hidden {
+        transform: translateX(-100%);
+        transition: transform 0.4s ease;
+    }
+
 }

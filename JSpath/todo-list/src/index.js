@@ -49,6 +49,7 @@ function deleteProject(index) {
 function switchProject(index) {
   currentProjectIndex = index;
   update();
+  document.querySelector('aside').classList.add('sidebar-hidden');
 }
 
 function addProject(name) {
@@ -101,6 +102,10 @@ document.getElementById('add-todo').addEventListener('click', () => {
   document.getElementById('todo-due-date').value = '';
 
   popup.classList.add('hidden');
+});
+
+document.getElementById('sidebar-btn').addEventListener('click', () => {
+  document.querySelector('aside').classList.toggle('sidebar-hidden');
 });
 
 update();

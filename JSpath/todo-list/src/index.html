@@ -1,12 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta charset="UTF-8" />
     <title>Todo List</title>
   </head>
   <body>
-    <aside>
-      <h2>Projects</h2>
+     <button id="sidebar-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 52 52">
+            <path fill="currentColor" d="M10 14h32v4H10zm0 12h32v4H10zm0 12h32v4H10z" />
+          </svg>
+        </button>
+    <aside class="sidebar-hidden">
+
+        <h2>Projects</h2>
+       
+
       <input id="new-project-name" placeholder="New project name" />
       <button id="add-project">Add Project</button>
       <ul id="project-list"></ul>
