@@ -22,6 +22,11 @@ aside {
     box-sizing: border-box;
 }
 
+aside input, #add-project {
+    padding: 10px;
+}
+
+
 main {
     flex: 1;
     padding: 1rem;
@@ -35,7 +40,7 @@ main {
 
 
 
-.hidden {
+#todo-popup.hidden {
     display: none;
 }
 
@@ -76,6 +81,8 @@ main {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s ease;
 }
 
 #project-list {
