@@ -40,7 +40,6 @@ body {
   position: relative;
   width: 400px;
   overflow: hidden;
-  margin-bottom: 2rem;
 }
 
 .carousel-track {
@@ -89,4 +88,15 @@ button[data-carousel-next] {
 
 .carousel-dots button.active {
   background: #333;
+}
+
+.carousel-timer {
+  text-align: center;
+}
+
+.component-container {
+  background-color:tan;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
