@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f4f8;
+  text-align: center;
+  margin: 0;
+  padding: 2em;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+input, button {
+  padding: 0.5em;
+  margin: 0.5em;
+  font-size: 1em;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  margin-top: 1em;
+}
+
+#error-msg {
+  color: red;
+  margin-top: 1em;
+}
