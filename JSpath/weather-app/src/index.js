@@ -9,12 +9,17 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "© OpenStreetMap contributors",
 }).addTo(map);
 
-const weatherDiv = document.getElementById("weather");
+const weatherTabs = {
+  current: document.getElementById("current"),
+  hourly: document.getElementById("hourly"),
+  daily: document.getElementById("daily"),
+};
+
 const searchInput = document.getElementById("search");
 const searchBtn = document.getElementById("search-btn");
 
 let droppedMarker = null;
-let selectedCoords = null; // lat long
+let selectedCoords = null;
 
 const pinIcon = L.divIcon({
   className: "emoji-icon",
@@ -39,76 +44,88 @@ async function reverseGeocode(lat, lon) {
   }
 }
 
-async function showWeather(lat, lon, areaName = null) {
-  weatherDiv.textContent = "⏳ Loading...";
+function renderTabs(data, name) {
+  // current tab
+  const current = data.currentConditions;
+  weatherTabs.current.innerHTML = `
+    🌍 <b>Weather near ${name}</b><br>
+    🌡️ ${current.temp}°C (feels like ${current.feelslike}°C)<br>
+    ☁️ ${current.conditions}<br>
+    💨 ${current.windspeed} km/h<br>
+    💧 ${current.humidity}% humidity<br>
+    🌅 Sunrise: ${current.sunrise}<br>
+    🌇 Sunset: ${current.sunset}
+  `;
+
+  // hourly
+  weatherTabs.hourly.innerHTML = data.days[0].hours.slice(0, 12).map(hour => `
+    <div class="hour-card">
+      <b>${hour.datetime}</b> - ${hour.temp}°C, ${hour.conditions}
+    </div>
+  `).join("");
+
+  // daily
+  weatherTabs.daily.innerHTML = data.days.slice(0, 5).map(day => `
+    <div class="day-card">
+      <b>${day.datetime}</b>: ${day.tempmin}°C - ${day.tempmax}°C - <i>${day.conditions}</i>
+    </div>
+  `).join("");
+}
+
+async function showWeather(lat, lon, name) {
+  weatherTabs.current.textContent = "⏳ Loading...";
+  weatherTabs.hourly.innerHTML = "";
+  weatherTabs.daily.innerHTML = "";
 
   const data = await fetchWeather(lat, lon);
   if (!data) {
-    weatherDiv.textContent = "⚠️ Unable to get weather.";
+    weatherTabs.current.textContent = "⚠️ Failed to load weather.";
     return;
   }
 
-  weatherDiv.innerHTML = `
-    🌍 <b>Weather near ${areaName || data.location}</b><br>
-    📍 <b>${data.location}</b><br>
-    🌡️ ${data.temp}°C<br>
-    ☁️ ${data.conditions}<br>
-    💨 ${data.wind} km/h wind
-  `;
+  renderTabs(data, name);
 }
 
-// on map click set coords, move map, update input field
 map.on("click", async (e) => {
   const { lat, lng } = e.latlng;
   const place = await reverseGeocode(lat, lng);
   const shortPlace = place.split(",").slice(0, 2).join(",").trim();
 
-  selectedCoords = {
-    lat,
-    lon: lng,
-    name: shortPlace,
-  };
+  selectedCoords = { lat, lon: lng, name: shortPlace };
 
   dropMarker(lat, lng);
   map.setView([lat, lng], 10);
   searchInput.value = place;
+  showWeather(lat, lng, shortPlace);
 });
 
-// on button click use saved lat/lon, not search bar text
 searchBtn.addEventListener("click", async () => {
   const query = searchInput.value.trim();
   if (!query) {
-    weatherDiv.textContent = "⚠️ Please enter a location.";
+    weatherTabs.current.textContent = "⚠️ Please enter a location.";
     return;
   }
 
-  // Geocode the typed text to get coordinates
-  const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-    query
-  )}`;
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
   try {
-    const res = await fetch(geoUrl);
+    const res = await fetch(url);
     const data = await res.json();
 
     if (!data || data.length === 0) {
-      weatherDiv.textContent = "⚠️ Location not found.";
+      weatherTabs.current.textContent = "⚠️ Location not found.";
       return;
     }
 
     const { lat, lon, display_name } = data[0];
-    const shortName = display_name.split(",").slice(0, 2).join(",").trim();
+    const shortPlace = display_name.split(",").slice(0, 2).join(",").trim();
 
-    selectedCoords = {
-      lat: parseFloat(lat),
-      lon: parseFloat(lon),
-      name: shortName,
-    };
+    selectedCoords = { lat: +lat, lon: +lon, name: shortPlace };
 
     dropMarker(lat, lon);
     map.setView([lat, lon], 10);
-    showWeather(lat, lon, shortName);
+    showWeather(lat, lon, shortPlace);
   } catch {
-    weatherDiv.textContent = "⚠️ Failed to geocode location.";
+    weatherTabs.current.textContent = "⚠️ Failed to geocode.";
   }
 });
 
@@ -116,14 +133,9 @@ window.addEventListener("load", async () => {
   try {
     const res = await fetch("https://ipapi.co/json/");
     const data = await res.json();
-
     const { latitude, longitude, city } = data;
 
-    selectedCoords = {
-      lat: latitude,
-      lon: longitude,
-      name: city,
-    };
+    selectedCoords = { lat: latitude, lon: longitude, name: city };
 
     dropMarker(latitude, longitude);
     map.setView([latitude, longitude], 10);
@@ -131,4 +143,15 @@ window.addEventListener("load", async () => {
   } catch (e) {
     console.warn("Failed to auto-detect location:", e);
   }
+});
+
+// tab logic
+document.querySelectorAll(".tab").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(b => b.classList.remove("active"));
+    document.querySelectorAll(".tab-content").forEach(tc => tc.style.display = "none");
+
+    btn.classList.add("active");
+    document.getElementById(btn.dataset.tab).style.display = "block";
+  });
 });

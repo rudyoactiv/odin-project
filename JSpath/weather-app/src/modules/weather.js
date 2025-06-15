@@ -5,18 +5,10 @@ export async function fetchWeather(lat, lon) {
 
   try {
     const res = await fetch(url);
-    if (!res.ok) throw new Error('API error');
-    const data = await res.json();
-
-    const current = data.currentConditions;
-    return {
-      location: data.resolvedAddress,
-      temp: current.temp,
-      conditions: current.conditions,
-      wind: current.windspeed
-    };
+    if (!res.ok) throw new Error("API error");
+    return await res.json();
   } catch (err) {
-    console.error('Weather fetch failed:', err);
+    console.error("Weather fetch failed:", err);
     return null;
   }
 }

@@ -1,25 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
 </head>
-
 <body>
-    <div id="app">
-        <div>
-            <input id="search" placeholder="Click map or search..." />
-            <button id="search-btn">🔍</button>
-        </div>
-
-        <div id="main-layout">
-            <div id="map"></div>
-            <div id="weather"></div>
-        </div>
+  <div id="app">
+    <div>
+      <h3>🍜 Noodle Maps</h3>
+      <input id="search" placeholder="Click map or search..." />
+      <button id="search-btn">🔍</button>
     </div>
+    <h2>Just search or click on the map!</h2>
+    <div id="main-layout">
+      <div id="map"></div>
 
+      <div id="weather">
+        <div class="tabs">
+          <button class="tab active" data-tab="current">Current</button>
+          <button class="tab" data-tab="hourly">Hourly</button>
+          <button class="tab" data-tab="daily">Daily</button>
+        </div>
+        <div class="tab-content" id="current"></div>
+        <div class="tab-content" id="hourly" style="display: none;"></div>
+        <div class="tab-content" id="daily" style="display: none;"></div>
+      </div>
+    </div>
+  </div>
 </body>
-
 </html>

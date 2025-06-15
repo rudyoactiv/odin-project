@@ -1,58 +1,61 @@
-body {
-  font-family: sans-serif;
+html, body {
+  height: 100%;
   margin: 0;
-  padding: 1rem;
+  padding: 0;
+  font-family: sans-serif;
   text-align: center;
-  background: #f2f2f2;
+}
+
+h3 {
+  margin: 2em;
+  font-size: 1.5em;
+}
+
+#app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 #main-layout {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
-  max-width: 900px;
-  margin: 1rem auto;
+  height: 100%;
+  flex: 1;
+  padding: 2rem;
 }
 
 #map {
-  height: 300px;
   flex: 1;
   border-radius: 8px;
 }
 
 #weather {
   flex: 1;
-  font-size: 1.2rem;
-  padding: 1rem;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  text-align: left;
+  padding: 1em;
+  box-sizing: border-box;
+  line-height: 2;
+  overflow-y: auto;
+  text-wrap: nowrap;
 }
-
-/* Responsive: Show side by side on wider screens */
-@media (min-width: 700px) {
-  #main-layout {
-    flex-direction: row;
-  }
-
-  #map, #weather {
-    height: 400px;
-  }
-}
-
 
 #search {
   padding: 0.5em 1em;
   font-size: 1em;
   width: 80%;
   max-width: 400px;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 #search-btn {
-  padding: 0.5em;
+  padding: 0.4em;
   font-size: 1em;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -60,12 +63,51 @@ body {
   cursor: pointer;
 }
 
-@media (min-width: 750px) {
+.tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  background: #eee;
+  cursor: pointer;
+}
+
+.tab.active {
+  background: #007bff;
+  color: white;
+}
+
+.tab-content {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 750px) {
   #main-layout {
-    flex-direction: row;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding: 1em;
+    max-height: 100%;
+    flex: 1;
+    overflow: auto;
   }
 
-  #map, #weather {
-    height: 400px;
+  h2 {
+    font-size: 1em;
+    margin: 0;
   }
+
+  
+h3 {
+  margin: 0.5em;
+}
+
+  #search {
+    width: auto;
+  }
+  
 }
