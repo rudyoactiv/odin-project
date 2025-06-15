@@ -60,14 +60,14 @@ function renderTabs(data, name) {
   // hourly
   weatherTabs.hourly.innerHTML = data.days[0].hours.slice(0, 12).map(hour => `
     <div class="hour-card">
-      <b>${hour.datetime}</b> - ${hour.temp}°C, ${hour.conditions}
+      <b>${hour.datetime.slice(0, 5)}</b> - ${hour.temp}°C <br> <i>${hour.conditions}</i>
     </div>
   `).join("");
 
   // daily
   weatherTabs.daily.innerHTML = data.days.slice(0, 5).map(day => `
     <div class="day-card">
-      <b>${day.datetime}</b>: ${day.tempmin}°C - ${day.tempmax}°C - <i>${day.conditions}</i>
+      <b>${day.datetime.slice(8, 10)}/${day.datetime.slice(5, 7)}</b>: ${day.tempmin}°C - ${day.tempmax}°C <br> <i>${day.conditions}</i>
     </div>
   `).join("");
 }

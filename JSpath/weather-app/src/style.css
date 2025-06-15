@@ -37,10 +37,11 @@ h3 {
   border-radius: 8px;
   box-shadow: 0 0 5px rgba(0,0,0,0.1);
   text-align: left;
-  padding: 1em;
+  padding-top: 0;
   box-sizing: border-box;
   line-height: 2;
   overflow-y: auto;
+  overflow-x: hidden;
   text-wrap: nowrap;
 }
 
@@ -66,7 +67,11 @@ h3 {
 .tabs {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  padding: 0.5em;
 }
 
 .tab {
@@ -84,6 +89,25 @@ h3 {
 
 .tab-content {
   font-size: 1rem;
+}
+
+#current {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+#current, .hour-card, .day-card {
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+  line-height: 1.2;
+}
+
+#current:last-child, .hour-card:last-child, .day-card:last-child {
+  border-bottom: none;
+}
+
+#current:nth-child(odd), .hour-card:nth-child(odd), .day-card:nth-child(odd) {
+  background: #f1f1f1;
 }
 
 @media screen and (max-width: 750px) {
