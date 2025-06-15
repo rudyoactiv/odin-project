@@ -1,26 +1,26 @@
-import 'leaflet/dist/leaflet.css';
-import './style.css';
-import L from 'leaflet';
-import { fetchWeather } from './modules/weather';
+import "leaflet/dist/leaflet.css";
+import "./style.css";
+import L from "leaflet";
+import { fetchWeather } from "./modules/weather";
 
-const map = L.map('map').setView([20.5937, 78.9629], 5);
+const map = L.map("map").setView([20.5937, 78.9629], 5);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "© OpenStreetMap contributors",
 }).addTo(map);
 
-const weatherDiv = document.getElementById('weather');
-const searchInput = document.getElementById('search');
-const searchBtn = document.getElementById('search-btn');
+const weatherDiv = document.getElementById("weather");
+const searchInput = document.getElementById("search");
+const searchBtn = document.getElementById("search-btn");
 
 let droppedMarker = null;
 let selectedCoords = null; // lat long
 
 const pinIcon = L.divIcon({
-  className: 'emoji-icon',
-  html: '📍',
+  className: "emoji-icon",
+  html: "📍",
   iconSize: [20, 20],
-  iconAnchor: [10, 10]
+  iconAnchor: [10, 10],
 });
 
 function dropMarker(lat, lon) {
@@ -40,11 +40,11 @@ async function reverseGeocode(lat, lon) {
 }
 
 async function showWeather(lat, lon, areaName = null) {
-  weatherDiv.textContent = '⏳ Loading...';
+  weatherDiv.textContent = "⏳ Loading...";
 
   const data = await fetchWeather(lat, lon);
   if (!data) {
-    weatherDiv.textContent = '⚠️ Unable to get weather.';
+    weatherDiv.textContent = "⚠️ Unable to get weather.";
     return;
   }
 
@@ -58,14 +58,15 @@ async function showWeather(lat, lon, areaName = null) {
 }
 
 // on map click set coords, move map, update input field
-map.on('click', async (e) => {
+map.on("click", async (e) => {
   const { lat, lng } = e.latlng;
   const place = await reverseGeocode(lat, lng);
+  const shortPlace = place.split(",").slice(0, 2).join(",").trim();
 
   selectedCoords = {
     lat,
     lon: lng,
-    name: place
+    name: shortPlace,
   };
 
   dropMarker(lat, lng);
@@ -73,38 +74,61 @@ map.on('click', async (e) => {
   searchInput.value = place;
 });
 
-
 // on button click use saved lat/lon, not search bar text
-searchBtn.addEventListener('click', async () => {
+searchBtn.addEventListener("click", async () => {
   const query = searchInput.value.trim();
   if (!query) {
-    weatherDiv.textContent = '⚠️ Please enter a location.';
+    weatherDiv.textContent = "⚠️ Please enter a location.";
     return;
   }
 
   // Geocode the typed text to get coordinates
-  const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`;
+  const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+    query
+  )}`;
   try {
     const res = await fetch(geoUrl);
     const data = await res.json();
 
     if (!data || data.length === 0) {
-      weatherDiv.textContent = '⚠️ Location not found.';
+      weatherDiv.textContent = "⚠️ Location not found.";
       return;
     }
 
     const { lat, lon, display_name } = data[0];
+    const shortName = display_name.split(",").slice(0, 2).join(",").trim();
 
     selectedCoords = {
       lat: parseFloat(lat),
       lon: parseFloat(lon),
-      name: display_name
+      name: shortName,
     };
 
     dropMarker(lat, lon);
     map.setView([lat, lon], 10);
-    showWeather(lat, lon, display_name);
+    showWeather(lat, lon, shortName);
   } catch {
-    weatherDiv.textContent = '⚠️ Failed to geocode location.';
+    weatherDiv.textContent = "⚠️ Failed to geocode location.";
+  }
+});
+
+window.addEventListener("load", async () => {
+  try {
+    const res = await fetch("https://ipapi.co/json/");
+    const data = await res.json();
+
+    const { latitude, longitude, city } = data;
+
+    selectedCoords = {
+      lat: latitude,
+      lon: longitude,
+      name: city,
+    };
+
+    dropMarker(latitude, longitude);
+    map.setView([latitude, longitude], 10);
+    showWeather(latitude, longitude, city);
+  } catch (e) {
+    console.warn("Failed to auto-detect location:", e);
   }
 });
