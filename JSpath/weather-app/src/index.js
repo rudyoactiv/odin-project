@@ -44,6 +44,20 @@ async function reverseGeocode(lat, lon) {
   }
 }
 
+function getWeatherEmoji(condition) {
+  const c = condition.toLowerCase();
+
+  if (c.includes("thunder")) return "⛈️";
+  if (c.includes("rain") || c.includes("shower")) return "🌧️";
+  if (c.includes("snow") || c.includes("sleet") || c.includes("ice")) return "❄️";
+  if (c.includes("fog") || c.includes("mist") || c.includes("haze")) return "🌫️";
+  if (c.includes("cloud") || c.includes("overcast")) return "☁️";
+  if (c.includes("clear") || c.includes("sun")) return "☀️";
+
+  return "🌈"; // fallback / unknown
+}
+
+
 function renderTabs(data, name) {
   // current tab
   const current = data.currentConditions;
@@ -58,18 +72,27 @@ function renderTabs(data, name) {
   `;
 
   // hourly
-  weatherTabs.hourly.innerHTML = data.days[0].hours.slice(0, 12).map(hour => `
+weatherTabs.hourly.innerHTML = data.days[0].hours.slice(0, 12).map(hour => {
+  const emoji = getWeatherEmoji(hour.conditions);
+  return `
     <div class="hour-card">
-      <b>${hour.datetime.slice(0, 5)}</b> - ${hour.temp}°C <br> <i>${hour.conditions}</i>
+      <b>${hour.datetime.slice(0, 5)}</b> - ${hour.temp}°C <br>
+      ${emoji}<i>${hour.conditions}</i>
     </div>
-  `).join("");
+  `;
+}).join("");
 
   // daily
-  weatherTabs.daily.innerHTML = data.days.slice(0, 5).map(day => `
+weatherTabs.daily.innerHTML = data.days.slice(0, 5).map(day => {
+  const emoji = getWeatherEmoji(day.conditions);
+  return `
     <div class="day-card">
-      <b>${day.datetime.slice(8, 10)}/${day.datetime.slice(5, 7)}</b>: ${day.tempmin}°C - ${day.tempmax}°C <br> <i>${day.conditions}</i>
+      <b>${day.datetime.slice(8, 10)}/${day.datetime.slice(5, 7)}</b>:
+      ${day.tempmin}°C - ${day.tempmax}°C <br>
+       ${emoji}<i>${day.conditions}</i>
     </div>
-  `).join("");
+  `;
+}).join("");
 }
 
 async function showWeather(lat, lon, name) {
