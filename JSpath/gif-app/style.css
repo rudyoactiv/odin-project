@@ -1,14 +1,18 @@
-body {
+html, body {
+  height: auto;
   font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
   text-align: center;
   margin: 0;
   padding: 2em;
 }
 
 .container {
-  max-width: 600px;
   margin: auto;
+}
+
+h1 {
+  margin: 0;
+  padding-bottom: 1em;
 }
 
 input, button {
@@ -26,4 +30,10 @@ img {
 #error-msg {
   color: red;
   margin-top: 1em;
+}
+
+#gif {
+  display: none;
+  margin: auto;
+  margin-top: 2em;
 }

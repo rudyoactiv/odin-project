@@ -10,6 +10,7 @@ const defaultGif = 'https://media.giphy.com/media/jAYUbVXgESSti/giphy.gif';
 
 function displayGif(url) {
   gifImg.src = url;
+  gifImg.style.display = 'block';
   errorMsg.textContent = '';
 }
 
@@ -52,3 +53,5 @@ searchBtn.addEventListener('click', () => {
 randomBtn.addEventListener('click', () => {
   fetchGif(); // random gif
 });
+
+fetchGif('cat');
