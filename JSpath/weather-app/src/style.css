@@ -6,8 +6,11 @@ html, body {
   text-align: center;
 }
 
+h2 {
+  margin: 0;
+}
+
 h3 {
-  margin: 2em;
   font-size: 1.5em;
 }
 
@@ -91,15 +94,17 @@ h3 {
   font-size: 1rem;
 }
 
-#current {
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
 #current, .hour-card, .day-card {
   padding: 1em;
   border-bottom: 1px solid #ccc;
   line-height: 1.2;
+}
+
+#current {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  border-bottom: none;
+  line-height: 1.5;
 }
 
 #current:last-child, .hour-card:last-child, .day-card:last-child {
