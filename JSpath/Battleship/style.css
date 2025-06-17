@@ -1,0 +1,85 @@
+body {
+    font-family: sans-serif;
+    background: #1a1a2e;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.boards {
+    display: flex;
+    gap: 40px;
+    margin-top: 20px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+    gap: 2px;
+    background: #111;
+    padding: 5px;
+    border: 2px solid #fff;
+}
+
+.cell {
+    width: 30px;
+    height: 30px;
+    background: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.cell.hit {
+    background: red;
+}
+
+.cell.miss {
+    background: #555;
+}
+
+.ship-piece {
+    background: hotpink;
+    border: 1px solid white;
+}
+
+.ship-selector {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.ship {
+    background: hotpink;
+    margin: 5px 0;
+    display: flex;
+    cursor: grab;
+}
+
+.ship.horizontal {
+    flex-direction: row;
+}
+
+.ship.vertical {
+    flex-direction: column;
+}
+
+.ship div {
+    width: 30px;
+    height: 30px;
+    border: 1px solid white;
+}
+
+.info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+button {
+    margin-top: 10px;
+}

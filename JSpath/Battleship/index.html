@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Battleship</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Battleship</h1>
+  <div class="info">
+    <div id="player-score">Player Score: 0</div>
+    <div id="ai-score">AI Score: 0</div>
+    <div id="remaining-ships">Remaining Ships: 5</div>
+    <button id="rotate-btn">Rotate</button>
+  </div>
+  <div class="ship-selector" id="ship-selector"></div>
+  <div class="boards">
+    <div>
+      <h2>Player Board</h2>
+      <div class="board" id="player-board"></div>
+    </div>
+    <div>
+      <h2>AI Board</h2>
+      <div class="board" id="ai-board"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
