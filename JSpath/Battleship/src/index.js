@@ -5,6 +5,8 @@ const rotateBtn = document.getElementById('rotate-btn');
 const playerScoreDiv = document.getElementById('player-score');
 const aiScoreDiv = document.getElementById('ai-score');
 const remainingShipsDiv = document.getElementById('remaining-ships');
+// css import
+import './style.css';
 
 let isVertical = false;
 let selectedShip = null;
