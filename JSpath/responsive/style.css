@@ -1,0 +1,265 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+    background-color: #0891b2;
+}
+
+.about {
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    flex-direction: row;
+    background-color: white;
+}
+
+.about::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #0891b2;
+    clip-path: polygon(0 0, 100% 0, 100% 40%, 10% 100%, 0 100%);
+    /* z-index: -1; */
+}
+
+.about-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 40px;
+    z-index: 1;
+}
+
+.img-wrap {
+    height: 100%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.about-container img {
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+}
+
+.about-text {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+p {
+    font-family: Arial, sans-serif;
+    color: rgb(80, 80, 80);
+}
+
+.icons {
+    text-align: right;
+    display: flex;
+    gap: 10px;
+    align-self: flex-end;
+}
+
+.icons a {
+    text-decoration: none;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    padding: 5px;
+    text-align: center;
+    width: 30px;
+    height: 30px;
+}
+
+#projects {
+    padding: 40px;
+    background-color: white;
+}
+
+.project-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+/* each card */
+.project {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+}
+
+.project-text {
+    padding: 10px;
+    background-color: white;
+}
+
+.contacts {
+    padding: 60px;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    background-color: #0891b2;
+    height: 60vh;
+    gap: 20px;
+    color: white;
+}
+
+.contacts img {
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    height: 100%;
+}
+
+.contact-container {
+    flex: 1;
+}
+
+
+.contact-container p {
+    color: white;
+}
+
+
+/* tablet size */
+
+@media (max-width: 1024px) {
+  .about-container {
+    display: block;
+    padding-top: 40px;
+  }
+
+  .img-wrap {
+    float: left;
+    width: 35%;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+    height: fit-content;
+    left: -20px;
+    top: -20px;
+    position: relative;
+    margin: 0 20px 20px 0;
+  }
+
+  .about-container img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-text {
+    display: block;
+    padding: 20px;
+  }
+
+  .icons {
+    display: none;
+  }
+
+  .project-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.contact-container {
+    font-size: 20px;
+}
+  
+}
+
+
+/* mobile size */
+@media (max-width: 600px) {
+  html, body {
+    font-size: 20px;
+  }
+
+  h1 {
+    text-align: center;
+  }
+
+  .about {
+    height: auto;
+    flex-direction: column;
+    padding-bottom: 20px;
+  }
+
+  .about::after {
+    clip-path: polygon(0 0, 100% 0, 100% 20%, 0 40%);
+  }
+
+  .about-container {
+    flex-direction: column;
+    margin: 20px;
+  }
+
+  .img-wrap {
+    width: 100%;
+    height: 60vh;
+    margin: 0 auto 20px auto;
+    position: relative;
+    float: none;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+  }
+
+  .about-container img {
+    width: auto;
+    height: 100%;
+  }
+
+  .about-text {
+    width: 100%;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .icons {
+    justify-content: center;
+    align-self: center;
+    margin-top: 10px;
+  }
+
+  #projects {
+    padding: 20px 10px;
+  }
+
+  .project-content {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .project {
+    font-size: 14px;
+  }
+
+  .contacts {
+    flex-direction: column;
+    height: auto;
+    padding: 20px;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .contacts img {
+    width: auto;
+    height: 100%;
+  }
+
+  .contact-container {
+    font-size: 18px;
+    width: 100%;
+  }
+}
