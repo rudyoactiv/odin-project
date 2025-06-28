@@ -5,19 +5,21 @@ const rotateBtn = document.getElementById('rotate-btn');
 const playerScoreDiv = document.getElementById('player-score');
 const aiScoreDiv = document.getElementById('ai-score');
 const remainingShipsDiv = document.getElementById('remaining-ships');
-// css import
+
 import './style.css';
 
 let isVertical = false;
 let selectedShip = null;
+let selectedOffset = 0;
+
 const ships = [5, 4, 3, 3, 2];
 let placedShips = 0;
 let playerGrid = Array(100).fill(null);
 let aiGrid = Array(100).fill(null);
-let aiHits = [];
 let aiTargets = [];
 let playerScore = 0;
 let aiScore = 0;
+let previewCells = [];
 
 function createBoard(board, isAI = false) {
   for (let i = 0; i < 100; i++) {
@@ -29,6 +31,7 @@ function createBoard(board, isAI = false) {
     } else {
       cell.addEventListener('dragover', e => e.preventDefault());
       cell.addEventListener('drop', handleDrop);
+      cell.addEventListener('dragenter', handleDragEnter);
     }
     board.appendChild(cell);
   }
@@ -40,47 +43,92 @@ function renderShips() {
     ship.classList.add('ship', 'horizontal');
     ship.setAttribute('draggable', true);
     ship.dataset.length = length;
+
     for (let i = 0; i < length; i++) {
       const part = document.createElement('div');
+      part.dataset.partIndex = i;
+      part.addEventListener('mousedown', () => {
+        selectedOffset = i;
+      });
       ship.appendChild(part);
     }
+
     ship.addEventListener('dragstart', () => {
       selectedShip = { length: parseInt(ship.dataset.length), element: ship };
     });
+
+    ship.addEventListener('dragend', clearPreview);
     shipSelector.appendChild(ship);
   });
 }
 
 rotateBtn.addEventListener('click', () => {
   isVertical = !isVertical;
+  document.getElementById('ship-selector').classList.toggle('vertical', isVertical);
   document.querySelectorAll('.ship').forEach(ship => {
     ship.classList.toggle('horizontal', !isVertical);
     ship.classList.toggle('vertical', isVertical);
   });
 });
 
+function clearPreview() {
+  previewCells.forEach(idx => {
+    playerBoard.children[idx].classList.remove('preview');
+  });
+  previewCells = [];
+}
+
+function handleDragEnter(e) {
+  if (!selectedShip) return;
+  const index = parseInt(e.target.dataset.index);
+  const startX = index % 10;
+  const startY = Math.floor(index / 10);
+  const tempPositions = [];
+
+  for (let i = 0; i < selectedShip.length; i++) {
+    const offset = i - selectedOffset;
+    const x = isVertical ? startX : startX + offset;
+    const y = isVertical ? startY + offset : startY;
+    if (x < 0 || x >= 10 || y < 0 || y >= 10) return clearPreview();
+    const idx = y * 10 + x;
+    if (playerGrid[idx]) return clearPreview();
+    tempPositions.push(idx);
+  }
+
+  clearPreview();
+  tempPositions.forEach(idx => {
+    playerBoard.children[idx].classList.add('preview');
+  });
+  previewCells = tempPositions;
+}
+
 function handleDrop(e) {
   const index = parseInt(e.target.dataset.index);
   const startX = index % 10;
   const startY = Math.floor(index / 10);
   const positions = [];
+
   for (let i = 0; i < selectedShip.length; i++) {
-    const x = isVertical ? startX : startX + i;
-    const y = isVertical ? startY + i : startY;
-    if (x >= 10 || y >= 10) return;
+    const offset = i - selectedOffset;
+    const x = isVertical ? startX : startX + offset;
+    const y = isVertical ? startY + offset : startY;
+    if (x < 0 || x >= 10 || y < 0 || y >= 10) return clearPreview();
     const idx = y * 10 + x;
-    if (playerGrid[idx]) return;
+    if (playerGrid[idx]) return clearPreview();
     positions.push(idx);
   }
+
   positions.forEach(idx => {
     playerGrid[idx] = 'ship';
     const cell = playerBoard.children[idx];
     cell.classList.add('ship-piece');
   });
+
+  clearPreview();
   selectedShip.element.remove();
   placedShips++;
-  if (placedShips === ships.length) initAI();
   remainingShipsDiv.textContent = `Remaining Ships: ${ships.length - placedShips}`;
+  if (placedShips === ships.length) initAI();
 }
 
 function initAI() {
@@ -92,6 +140,7 @@ function initAI() {
       const y = Math.floor(Math.random() * (vertical ? 10 - length : 10));
       const positions = [];
       let valid = true;
+
       for (let i = 0; i < length; i++) {
         const xi = vertical ? x : x + i;
         const yi = vertical ? y + i : y;
@@ -102,6 +151,7 @@ function initAI() {
         }
         positions.push(idx);
       }
+
       if (valid) {
         positions.forEach(idx => aiGrid[idx] = 'ship');
         placed = true;
@@ -113,6 +163,7 @@ function initAI() {
 function handlePlayerAttack(e) {
   const idx = parseInt(e.target.dataset.index);
   if (aiBoard.children[idx].classList.contains('hit') || aiBoard.children[idx].classList.contains('miss')) return;
+
   if (aiGrid[idx] === 'ship') {
     e.target.classList.add('hit');
     aiGrid[idx] = 'hit';
@@ -122,6 +173,7 @@ function handlePlayerAttack(e) {
     e.target.classList.add('miss');
     aiTurn();
   }
+
   checkEnd();
 }
 
@@ -134,6 +186,7 @@ function aiTurn() {
       idx = Math.floor(Math.random() * 100);
     } while (playerBoard.children[idx].classList.contains('hit') || playerBoard.children[idx].classList.contains('miss'));
   }
+
   const cell = playerBoard.children[idx];
   if (playerGrid[idx] === 'ship') {
     cell.classList.add('hit');
@@ -146,6 +199,7 @@ function aiTurn() {
   } else {
     cell.classList.add('miss');
   }
+
   checkEnd();
 }
 
@@ -153,6 +207,7 @@ function getNeighbors(idx) {
   const x = idx % 10;
   const y = Math.floor(idx / 10);
   const deltas = [[1, 0], [-1, 0], [0, 1], [0, -1]];
+
   return deltas
     .map(([dx, dy]) => {
       const nx = x + dx;
@@ -164,8 +219,9 @@ function getNeighbors(idx) {
 }
 
 function checkEnd() {
-  if (playerScore === ships.reduce((a, b) => a + b)) alert("You win!");
-  if (aiScore === ships.reduce((a, b) => a + b)) alert("AI wins!");
+  const total = ships.reduce((a, b) => a + b);
+  if (playerScore === total) alert("You win!");
+  if (aiScore === total) alert("AI wins!");
 }
 
 createBoard(playerBoard);

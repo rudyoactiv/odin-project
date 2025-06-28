@@ -19,7 +19,7 @@ body {
     display: grid;
     grid-template-columns: repeat(10, 30px);
     grid-template-rows: repeat(10, 30px);
-    gap: 2px;
+    gap: 0px;
     background: #111;
     padding: 5px;
     border: 2px solid #fff;
@@ -33,6 +33,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    border: 1px solid black;
 }
 
 .cell.hit {
@@ -54,19 +55,26 @@ body {
     margin-top: 20px;
 }
 
+.ship-selector.vertical {
+    flex-direction: row;
+}
+
 .ship {
     background: hotpink;
-    margin: 5px 0;
     display: flex;
     cursor: grab;
+    width: fit-content;
+    height: fit-content;
 }
 
 .ship.horizontal {
     flex-direction: row;
+    margin: 5px 0;
 }
 
 .ship.vertical {
     flex-direction: column;
+    margin: 0 5px;
 }
 
 .ship div {
@@ -82,4 +90,8 @@ body {
 
 button {
     margin-top: 10px;
+}
+
+.cell.preview {
+  background-color: rgba(255, 255, 255, 0.3);
 }
