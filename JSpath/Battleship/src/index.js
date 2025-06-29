@@ -5,6 +5,8 @@ const rotateBtn = document.getElementById('rotate-btn');
 const playerScoreDiv = document.getElementById('player-score');
 const aiScoreDiv = document.getElementById('ai-score');
 const remainingShipsDiv = document.getElementById('remaining-ships');
+const startGameBtn = document.getElementById('start-game-btn');
+const aiBoardContainer = document.getElementById('ai-board-container');
 
 import './style.css';
 
@@ -71,6 +73,16 @@ rotateBtn.addEventListener('click', () => {
   });
 });
 
+startGameBtn.addEventListener('click', () => {
+  if (startGameBtn.textContent === 'Start Game') {
+    aiBoardContainer.style.display = 'block';
+    startGameBtn.textContent = 'Restart Game';
+  } else {
+    resetGame();
+  }
+});
+
+
 function clearPreview() {
   previewCells.forEach(idx => {
     playerBoard.children[idx].classList.remove('preview');
@@ -128,8 +140,13 @@ function handleDrop(e) {
   selectedShip.element.remove();
   placedShips++;
   remainingShipsDiv.textContent = `Remaining Ships: ${ships.length - placedShips}`;
-  if (placedShips === ships.length) initAI();
+  if (placedShips === ships.length) {
+    initAI();
+    startGameBtn.disabled = false;
+  }
 }
+
+
 
 function initAI() {
   ships.forEach(length => {
@@ -223,6 +240,42 @@ function checkEnd() {
   if (playerScore === total) alert("You win!");
   if (aiScore === total) alert("AI wins!");
 }
+
+function resetGame() {
+  // Reset game state
+  placedShips = 0;
+  selectedShip = null;
+  selectedOffset = 0;
+  isVertical = false;
+  previewCells = [];
+  playerGrid = Array(100).fill(null);
+  aiGrid = Array(100).fill(null);
+  aiTargets = [];
+  playerScore = 0;
+  aiScore = 0;
+
+  // Reset scores and UI
+  playerScoreDiv.textContent = 'Player Score: 0';
+  aiScoreDiv.textContent = 'AI Score: 0';
+  remainingShipsDiv.textContent = `Remaining Ships: ${ships.length}`;
+  aiBoardContainer.style.display = 'none';
+  startGameBtn.disabled = true;
+  startGameBtn.textContent = 'Start Game';
+
+  // Clear both boards
+  playerBoard.innerHTML = '';
+  aiBoard.innerHTML = '';
+
+  // Reset rotation UI
+  document.getElementById('ship-selector').classList.remove('vertical');
+
+  // Clear and re-render
+  shipSelector.innerHTML = '';
+  renderShips();
+  createBoard(playerBoard);
+  createBoard(aiBoard, true);
+}
+
 
 createBoard(playerBoard);
 createBoard(aiBoard, true);
