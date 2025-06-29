@@ -10,26 +10,36 @@
   <button id="menu-toggle">≡</button>
   <nav id="sidebar">
     <h1>My Projects</h1>
-    <ul>
-      <li><a href="#" onclick="loadProject('./Foundations/html-boilerplate/index.html')">HTML Boilerplate</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/landing-page/index.html')">Landing Page</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/odin-links-and-images/index.html')">Links and Images</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/odin-recipes/index.html')">Odin Recipes</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/rock-paper/index.html')">Rock Paper Scissors</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/etchsketch/index.html')">Etch-a-Sketch</a></li>
-      <li><a href="#" onclick="loadProject('./Foundations/calculator/index.html')">Calculator</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/sign-up/index.html')">Sign-Up Form</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/dashboard/index.html')">Dashboard</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/library/index.html')">Book Library</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/tictac/index.html')">Tic-Tac-Toe</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/restaurant-page/dist/index.html')">Restaurant Page</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/todo-list/dist/index.html')">To-do List</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/reusable-components/index.html')">Reusable Components</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/gif-app/index.html')">GIF Viewer</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/weather-app/dist/index.html')">Weather App</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/Battleship/dist/index.html')">Battleship</a></li>
-      <li><a href="#" onclick="loadProject('./JSpath/responsive/index.html')">Responsive Layout</a></li>
-    </ul>
+<div class="accordion-section">
+  <div class="accordion-header">Foundations</div>
+  <ul class="accordion-content">
+    <li onclick="loadProject('./Foundations/html-boilerplate/index.html')">HTML Boilerplate</li>
+    <li onclick="loadProject('./Foundations/landing-page/index.html')">Landing Page</li>
+    <li onclick="loadProject('./Foundations/odin-links-and-images/index.html')">Links and Images</li>
+    <li onclick="loadProject('./Foundations/odin-recipes/index.html')">Odin Recipes</li>
+    <li onclick="loadProject('./Foundations/rock-paper/index.html')">Rock Paper Scissors</li>
+    <li onclick="loadProject('./Foundations/etchsketch/index.html')">Etch-a-Sketch</li>
+    <li onclick="loadProject('./Foundations/calculator/index.html')">Calculator</li>
+  </ul>
+</div>
+
+<div class="accordion-section">
+  <div class="accordion-header">Advanced JavaScript</div>
+  <ul class="accordion-content">
+    <li onclick="loadProject('./JSpath/sign-up/index.html')">Sign-Up Form</li>
+    <li onclick="loadProject('./JSpath/dashboard/index.html')">Dashboard</li>
+    <li onclick="loadProject('./JSpath/library/index.html')">Book Library</li>
+    <li onclick="loadProject('./JSpath/tictac/index.html')">Tic-Tac-Toe</li>
+    <li onclick="loadProject('./JSpath/restaurant-page/dist/index.html')">Restaurant Page</li>
+    <li onclick="loadProject('./JSpath/todo-list/dist/index.html')">To-do List</li>
+    <li onclick="loadProject('./JSpath/reusable-components/index.html')">Reusable Components</li>
+    <li onclick="loadProject('./JSpath/gif-app/index.html')">GIF Viewer</li>
+    <li onclick="loadProject('./JSpath/weather-app/dist/index.html')">Weather App</li>
+    <li onclick="loadProject('./JSpath/Battleship/dist/index.html')">Battleship</li>
+    <li onclick="loadProject('./JSpath/responsive/index.html')">Responsive Layout</li>
+  </ul>
+</div>
+
   </nav>
   <main>
     <iframe id="preview" src=""></iframe>

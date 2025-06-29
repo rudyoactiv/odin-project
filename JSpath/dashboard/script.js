@@ -45,8 +45,8 @@ const projects = [
     desc: "A mobile app that lets users scan grocery items and pay instantly without waiting in line. Uses Flutter, QR code scanning, and integrates with Stripe for payments."
   },
   {
-    title: "Scan & Go",
-    desc: "A mobile app that lets users scan grocery items and pay instantly without waiting in line. Uses Flutter, QR code scanning, and integrates with Stripe for payments."
+    title: "Campus Navigator",
+    desc: "A student-focused mobile app that helps users navigate large school or college campuses with interactive maps, building info, and real-time event updates. Built with Flutter, uses GPS and Firebase for location services and data sync."
   }
 ];
 
