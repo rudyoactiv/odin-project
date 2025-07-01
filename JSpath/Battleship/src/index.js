@@ -40,6 +40,7 @@ function createBoard(board, isAI = false) {
 }
 
 function renderShips() {
+  shipSelector.style.display = 'flex';
   ships.forEach(length => {
     const ship = document.createElement('div');
     ship.classList.add('ship', 'horizontal');
@@ -75,6 +76,7 @@ rotateBtn.addEventListener('click', () => {
 
 startGameBtn.addEventListener('click', () => {
   if (startGameBtn.textContent === 'Start Game') {
+    shipSelector.style.display = 'none';
     aiBoardContainer.style.display = 'block';
     startGameBtn.textContent = 'Restart Game';
   } else {
