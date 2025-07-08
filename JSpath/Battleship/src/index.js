@@ -75,10 +75,10 @@ rotateBtn.addEventListener('click', () => {
 });
 
 startGameBtn.addEventListener('click', () => {
-  if (startGameBtn.textContent === 'Start Game') {
+  if (startGameBtn.textContent === '▷') {
     shipSelector.style.display = 'none';
     aiBoardContainer.style.display = 'block';
-    startGameBtn.textContent = 'Restart Game';
+    startGameBtn.textContent = '⟳';
   } else {
     resetGame();
   }
@@ -262,7 +262,7 @@ function resetGame() {
   remainingShipsDiv.textContent = `Remaining Ships: ${ships.length}`;
   aiBoardContainer.style.display = 'none';
   startGameBtn.disabled = true;
-  startGameBtn.textContent = 'Start Game';
+  startGameBtn.textContent = '▷';
 
   // Clear both boards
   playerBoard.innerHTML = '';

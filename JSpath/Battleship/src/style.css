@@ -32,6 +32,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 1000px;
 }
 
 .boards>div {
@@ -52,6 +53,10 @@ body {
     grid-template-rows: repeat(10, 30px);
     align-items: center;
     justify-content: center;
+}
+
+#player-board {
+    align-self: flex-end;
 }
 
 .cell {
@@ -79,7 +84,6 @@ body {
 }
 
 .ship-selector {
-    height: 100%;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -87,6 +91,7 @@ body {
 
 .ship-selector.vertical {
     flex-direction: row;
+    justify-content: center;
 }
 
 .ship {
@@ -127,14 +132,22 @@ button {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
+.ship-selector-container {
+    height: 100%;
+}
+
 
 @media screen and (max-width: 750px) {
     
+    h2 {
+        margin: 0;
+        margin-bottom: 10px;
+    }
+
     .boards {
         flex-direction: column;
         align-items: center;
     }
-
     .board {
         grid-template-columns: repeat(10, 4vh);
         grid-template-rows: repeat(10, 4vh);
@@ -147,5 +160,18 @@ button {
 
     .ship-selector {
         min-height: 50vh;
+    }
+
+    #start-game-btn {
+        position: fixed;
+        right: 10px;
+        bottom: 10px;
+        padding: 20px;
+        border-radius: 50px;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1.4rem;
+        background-color: hotpink;
+        color: white;
     }
 }
