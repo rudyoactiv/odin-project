@@ -272,7 +272,7 @@ function resetGame() {
   document.getElementById('ship-selector').classList.remove('vertical');
 
   // Clear and re-render
-  shipSelector.innerHTML = '';
+  shipSelector.innerHTML = '<h2>Build Your Board</h2>';
   renderShips();
   createBoard(playerBoard);
   createBoard(aiBoard, true);

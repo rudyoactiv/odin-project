@@ -87,11 +87,18 @@ body {
     display: flex;
     flex-direction: column;
     flex: 1;
+    height: 100%;
+    flex-wrap: wrap;
+}
+
+.ship-selector > :first-child {
+    width: 100%;
 }
 
 .ship-selector.vertical {
     flex-direction: row;
     justify-content: center;
+    align-content: flex-start;
 }
 
 .ship {
