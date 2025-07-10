@@ -4,7 +4,6 @@ const shipSelector = document.getElementById('ship-selector');
 const rotateBtn = document.getElementById('rotate-btn');
 const playerScoreDiv = document.getElementById('player-score');
 const aiScoreDiv = document.getElementById('ai-score');
-const remainingShipsDiv = document.getElementById('remaining-ships');
 const startGameBtn = document.getElementById('start-game-btn');
 const aiBoardContainer = document.getElementById('ai-board-container');
 
@@ -141,7 +140,6 @@ function handleDrop(e) {
   clearPreview();
   selectedShip.element.remove();
   placedShips++;
-  remainingShipsDiv.textContent = `Remaining Ships: ${ships.length - placedShips}`;
   if (placedShips === ships.length) {
     initAI();
     startGameBtn.disabled = false;
@@ -259,10 +257,9 @@ function resetGame() {
   // Reset scores and UI
   playerScoreDiv.textContent = 'Player Score: 0';
   aiScoreDiv.textContent = 'AI Score: 0';
-  remainingShipsDiv.textContent = `Remaining Ships: ${ships.length}`;
   aiBoardContainer.style.display = 'none';
   startGameBtn.disabled = true;
-  startGameBtn.textContent = '▷';
+  startGameBtn.textContent = 'Start';
 
   // Clear both boards
   playerBoard.innerHTML = '';
