@@ -81,8 +81,12 @@ startGameBtn.addEventListener("click", () => {
     aiBoardContainer.style.display = "block";
     rotateBtn.style.display = "none";
     startGameBtn.textContent = "Reset";
+    // add reset class name to startGameBtn
+    startGameBtn.classList.add("reset");
   } else {
     resetGame();
+    // remove reset class name from startGameBtn
+    startGameBtn.classList.remove("reset");
   }
 });
 
