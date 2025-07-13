@@ -10,20 +10,21 @@
 <div class="info">
   <div id="player-score">Player Score: 0</div>
   <div id="ai-score">AI Score: 0</div>
-  <div id="remaining-ships">Remaining Ships: 5</div>
   <button id="rotate-btn">Rotate</button>
-  <button id="start-game-btn" disabled>Start Game</button>
+  <button id="start-game-btn" disabled>Start</button>
 </div>
 
 <div class="boards">
-  <div>
+  <div class="board-container">
     <h2>Player Board</h2>
     <div class="board" id="player-board"></div>
   </div>
 
-  <div class="ship-selector" id="ship-selector"></div>
+  <div class="ship-selector" id="ship-selector">
+    <h2>Place Your Ships</h2>
+  </div>
 
-  <div id="ai-board-container" style="display: none;">
+  <div class="board-container" id="ai-board-container" style="display: none;">
     <h2>AI Board</h2>
     <div class="board" id="ai-board"></div>
   </div>
