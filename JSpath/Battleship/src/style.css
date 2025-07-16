@@ -168,6 +168,19 @@ button:disabled {
     cursor: not-allowed;
 }
 
+.mob-reset {
+    display: none;
+}
+
+#ships-reset-btn {
+    width: fit-content;
+    align-self: center;
+    background-color: hotpink;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 750px) {
 
@@ -242,6 +255,7 @@ button:disabled {
     }
     #ai-board-container {
         border: none;
+        position: relative;
     }
 
     #ai-board-container h2 {
@@ -279,9 +293,42 @@ button:disabled {
     }
 
     .reset {
+        display: none;
+    }
+
+    .mob-reset {
+        position: absolute;
+        display: flex;
+        right: 0;
+        bottom: 50%;
+        transform: translateX(calc(100% + 5px)) translateY(75%);
+        padding: 10px;
+        background-color: maroon;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        line-height: 1rem;
+        writing-mode: sideways-lr;
+    }
+
+    #randomize-btn {
         position: fixed;
-        transform: rotate(-90deg);
-        bottom: 25% !important;
-        right: -20px !important;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 5px;
+        border-radius: 5px;
+        border: none;
+        font-size: 1rem;
+        line-height: 1.4rem;
+        background-color: maroon;
+        color: white;
+    }
+
+    #ships-reset-btn {
+        background-color: maroon;
+        border-radius: 5px;
     }
 }

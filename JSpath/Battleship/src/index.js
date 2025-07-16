@@ -5,6 +5,7 @@ const rotateBtn = document.getElementById("rotate-btn");
 const playerScoreDiv = document.getElementById("player-score");
 const aiScoreDiv = document.getElementById("ai-score");
 const startGameBtn = document.getElementById("start-game-btn");
+const mobileResetBtn = document.getElementById("mob-reset-btn");
 const aiBoardContainer = document.getElementById("ai-board-container");
 
 import "./style.css";
@@ -64,6 +65,59 @@ function renderShips() {
   });
 }
 
+document.getElementById("randomize-btn").addEventListener("click", randomizePlayerBoard);
+
+function randomizePlayerBoard() {
+  resetGame();
+
+  // Reset player grid
+  playerGrid = Array(100).fill(null);
+  playerBoard.querySelectorAll(".cell").forEach((cell) => {
+    cell.classList.remove("ship-piece");
+  });
+
+  // Remove ships from shipSelector
+  shipSelector.innerHTML = "<h2>Place Your Ships</h2>";
+  placedShips = 0;
+
+  ships.forEach((length) => {
+    let placed = false;
+    while (!placed) {
+      const vertical = Math.random() < 0.5;
+      const x = Math.floor(Math.random() * (vertical ? 10 : 10 - length));
+      const y = Math.floor(Math.random() * (vertical ? 10 - length : 10));
+      const positions = [];
+      let valid = true;
+
+      for (let i = 0; i < length; i++) {
+        const xi = vertical ? x : x + i;
+        const yi = vertical ? y + i : y;
+        const idx = yi * 10 + xi;
+        if (playerGrid[idx]) {
+          valid = false;
+          break;
+        }
+        positions.push(idx);
+      }
+
+      if (valid) {
+        positions.forEach((idx) => {
+          playerGrid[idx] = "ship";
+          playerBoard.children[idx].classList.add("ship-piece");
+        });
+        placed = true;
+        placedShips++;
+      }
+    }
+  });
+
+  // Disable ship selector
+  // shipSelector.style.display = "none";
+  startGameBtn.disabled = false;
+  initAI();
+  showShipsResetBtn();
+}
+
 rotateBtn.addEventListener("click", () => {
   isVertical = !isVertical;
   document
@@ -83,12 +137,15 @@ startGameBtn.addEventListener("click", () => {
     startGameBtn.textContent = "Reset";
     // add reset class name to startGameBtn
     startGameBtn.classList.add("reset");
+    document.getElementById("randomize-btn").style.display = "none";
   } else {
     resetGame();
     // remove reset class name from startGameBtn
     startGameBtn.classList.remove("reset");
   }
 });
+
+mobileResetBtn.addEventListener("click", resetGame);
 
 function clearPreview() {
   previewCells.forEach((idx) => {
@@ -149,6 +206,7 @@ function handleDrop(e) {
   if (placedShips === ships.length) {
     initAI();
     startGameBtn.disabled = false;
+    showShipsResetBtn();
   }
 }
 
@@ -282,6 +340,8 @@ function resetGame() {
   aiBoardContainer.style.display = "none";
   startGameBtn.disabled = true;
   startGameBtn.textContent = "Start";
+  startGameBtn.classList.remove("reset");
+  startGameBtn.style.display = "";
 
   // Clear both boards
   playerBoard.innerHTML = "";
@@ -290,12 +350,26 @@ function resetGame() {
   // Reset rotation UI
   document.getElementById("ship-selector").classList.remove("vertical");
 
+  // Show randomize button
+  document.getElementById("randomize-btn").style.display = "";
+
   // Clear and re-render
   shipSelector.innerHTML = "<h2>Place Your Ships</h2>";
   renderShips();
   createBoard(playerBoard);
   createBoard(aiBoard, true);
 }
+
+function showShipsResetBtn() {
+  if (!document.getElementById("ships-reset-btn")) {
+    const shipsResetBtn = document.createElement("button");
+    shipsResetBtn.id = "ships-reset-btn";
+    shipsResetBtn.textContent = "Reset";
+    shipsResetBtn.addEventListener("click", resetGame);
+    shipSelector.appendChild(shipsResetBtn);
+  }
+}
+
 
 createBoard(playerBoard);
 createBoard(aiBoard, true);
