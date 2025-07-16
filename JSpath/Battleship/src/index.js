@@ -13,6 +13,8 @@ import "./style.css";
 let isVertical = false;
 let selectedShip = null;
 let selectedOffset = 0;
+let gameOver = false;
+let playerTurn = true;
 
 const ships = [5, 4, 3, 3, 2];
 let placedShips = 0;
@@ -62,6 +64,14 @@ function renderShips() {
 
     ship.addEventListener("dragend", clearPreview);
     shipSelector.appendChild(ship);
+  });
+}
+
+function revealAllAIShips() {
+  aiGrid.forEach((cell, idx) => {
+    if (cell === "ship") {
+      aiBoard.children[idx].classList.add("ship-piece");
+    }
   });
 }
 
@@ -240,6 +250,8 @@ function initAI() {
 }
 
 function handlePlayerAttack(e) {
+  if (gameOver || !playerTurn) return;
+
   const idx = parseInt(e.target.dataset.index);
   if (
     aiBoard.children[idx].classList.contains("hit") ||
@@ -254,6 +266,7 @@ function handlePlayerAttack(e) {
     playerScoreDiv.textContent = `Player Score: ${playerScore}`;
   } else {
     e.target.classList.add("miss");
+    playerTurn = false;
     aiTurn();
   }
 
@@ -261,7 +274,17 @@ function handlePlayerAttack(e) {
 }
 
 function aiTurn() {
+  if (gameOver) return;
+
   let idx;
+
+  // clean up aiTargets to remove already used cells
+  aiTargets = aiTargets.filter(
+    (i) =>
+      !playerBoard.children[i].classList.contains("hit") &&
+      !playerBoard.children[i].classList.contains("miss")
+  );
+
   if (aiTargets.length) {
     idx = aiTargets.pop();
   } else {
@@ -284,6 +307,7 @@ function aiTurn() {
     setTimeout(aiTurn, 500);
   } else {
     cell.classList.add("miss");
+    playerTurn = true;
   }
 
   checkEnd();
@@ -315,13 +339,23 @@ function getNeighbors(idx) {
 }
 
 function checkEnd() {
+  if (gameOver) return;
+
   const total = ships.reduce((a, b) => a + b);
-  if (playerScore === total) alert("You win!");
-  if (aiScore === total) alert("AI wins!");
+  if (playerScore === total) {
+    alert("You win!");
+    gameOver = true;
+  }
+  if (aiScore === total) {
+    revealAllAIShips();
+    alert("AI wins!");
+    gameOver = true;
+  }
 }
 
 function resetGame() {
   // Reset game state
+  gameOver = false;
   rotateBtn.style.display = "";
   placedShips = 0;
   selectedShip = null;
