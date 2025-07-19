@@ -7,6 +7,7 @@ const aiScoreDiv = document.getElementById("ai-score");
 const startGameBtn = document.getElementById("start-game-btn");
 const mobileResetBtn = document.getElementById("mob-reset-btn");
 const aiBoardContainer = document.getElementById("ai-board-container");
+const resultMessage = document.getElementById("result-message");
 
 import "./style.css";
 
@@ -74,6 +75,7 @@ function revealAllAIShips() {
     }
   });
 }
+window.revealAllAIShips = revealAllAIShips;
 
 document.getElementById("randomize-btn").addEventListener("click", randomizePlayerBoard);
 
@@ -343,18 +345,22 @@ function checkEnd() {
 
   const total = ships.reduce((a, b) => a + b);
   if (playerScore === total) {
-    alert("You win!");
+    resultMessage.textContent = "You win!";
+    resultMessage.style.display = "block";
     gameOver = true;
   }
   if (aiScore === total) {
     revealAllAIShips();
-    alert("AI wins!");
+    resultMessage.textContent = "AI wins!";
+    resultMessage.style.display = "block";
     gameOver = true;
   }
 }
 
 function resetGame() {
   // Reset game state
+  resultMessage.textContent = "";
+  resultMessage.style.display = "none";
   gameOver = false;
   rotateBtn.style.display = "";
   placedShips = 0;
@@ -392,6 +398,7 @@ function resetGame() {
   renderShips();
   createBoard(playerBoard);
   createBoard(aiBoard, true);
+  playerTurn = true;
 }
 
 function showShipsResetBtn() {

@@ -182,6 +182,21 @@ button:disabled {
     cursor: pointer;
 }
 
+.result-message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+    font-weight: bold;
+    color: rgb(255, 217, 0);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+}
+
+
 @media screen and (max-width: 750px) {
 
     h1 {
@@ -330,5 +345,11 @@ button:disabled {
     #ships-reset-btn {
         background-color: maroon;
         border-radius: 5px;
+    }
+
+    #start-game-btn:disabled {
+        background-color: grey;
+        color: white;
+        cursor: not-allowed;
     }
 }
